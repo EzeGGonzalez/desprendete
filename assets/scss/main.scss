@@ -1,0 +1,8 @@
+@import "config";
+@import "~bootstrap/scss/bootstrap.scss";
+
+main {
+  @extend .pt-5;
+}
+
+@import "products";

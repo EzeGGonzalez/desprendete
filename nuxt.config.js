@@ -17,6 +17,15 @@ module.exports = {
   ** Customize the progress bar color
   */
   loading: { color: '#3B8070' },
+
+  css: [
+    // node.js module but we specify the pre-processor
+    { src: '~assets/scss/main.scss', lang: 'scss' }
+  ],
+
+  modules: [
+    ['bootstrap-vue/nuxt', { css: false }]    
+  ],
   /*
   ** Build configuration
   */
