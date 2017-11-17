@@ -1,20 +1,24 @@
 #products {
   @extend .container;
-
+  
   .list {
     @include make-row();
 
-    & > div {
-      @include make-col-ready();
-      @include make-col(12);
-    }
+    .masonry-container {
+      width: 100%;
 
-    ul {
-      @include make-row();
-
-      li {
+      .item {
         @include make-col-ready();
         @include make-col(3);
+
+        @extend .mb-4;
+
+        .card {
+          .card-title {
+            margin-bottom: 0;
+            @extend .h6;
+          }
+        }
       }
     }
   }

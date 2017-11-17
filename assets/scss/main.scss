@@ -1,6 +1,13 @@
 @import "config";
 @import "~bootstrap/scss/bootstrap.scss";
 
+@import "shadow";
+@import "buttons";
+
+html, body {
+  background-color: #f7f7f7;
+}
+
 main {
   @extend .pt-5;
 }

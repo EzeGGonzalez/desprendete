@@ -19,13 +19,20 @@ module.exports = {
   loading: { color: '#3B8070' },
 
   css: [
-    // node.js module but we specify the pre-processor
+    { src: '~assets//open-iconic/font/css/open-iconic.css' },
+    { src: '~assets//open-iconic/font/css/open-iconic-bootstrap.css' },
     { src: '~assets/scss/main.scss', lang: 'scss' }
   ],
 
   modules: [
     ['bootstrap-vue/nuxt', { css: false }]    
   ],
+  
+  plugins: [
+    '~plugins/axios.js',
+    { src: '~plugins/vue-masonry.js', ssr: false }
+  ],
+  
   /*
   ** Build configuration
   */
