@@ -13,6 +13,14 @@
 
         @extend .mb-4;
 
+        a {
+          color: inherit;
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+
         .card {
           .card-title {
             margin-bottom: 0;
@@ -20,6 +28,25 @@
           }
         }
       }
+    }
+  }
+}
+
+#product {
+  @extend .container;
+
+  .carousel-item {
+    img {
+      width: 100%;
+    }
+  }
+
+  .share-icons {
+    margin: 0 -5px;
+    img {
+      padding: 0 5px;
+      
+      width: 35px;
     }
   }
 }

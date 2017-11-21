@@ -32,6 +32,10 @@ module.exports = {
     '~plugins/axios.js',
     { src: '~plugins/vue-masonry.js', ssr: false }
   ],
+
+  env: {
+    'API_URL': 'https://apitest.desprendete.com'
+  },
   
   /*
   ** Build configuration

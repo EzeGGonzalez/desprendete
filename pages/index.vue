@@ -2,7 +2,7 @@
   <section id="products">
     <div class="list">
       <no-ssr>
-        <div v-masonry transition-duration="0.5s" item-selector=".item" class="masonry-container">
+        <div v-masonry transition-duration="0s" item-selector=".item" class="masonry-container">
           <product :product="p" v-for="p in products" :key="p._id"/>
         </div>
       </no-ssr>
