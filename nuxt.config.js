@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
   /*
   ** Headers of the page
@@ -25,7 +27,8 @@ module.exports = {
   ],
 
   modules: [
-    ['bootstrap-vue/nuxt', { css: false }]    
+    ['bootstrap-vue/nuxt', { css: false }],
+    '@nuxtjs/dotenv'  
   ],
   
   plugins: [
@@ -33,9 +36,7 @@ module.exports = {
     { src: '~plugins/vue-masonry.js', ssr: false }
   ],
 
-  env: {
-    'API_URL': 'https://apitest.desprendete.com'
-  },
+  env: process.env,
   
   /*
   ** Build configuration

@@ -40,10 +40,10 @@
             <p>Compartí con tus amigos</p>
 
             <div class="share-icons">
-              <a :href="`https://www.facebook.com/dialog/share?app_id=1031588773519678&display=popup&href=https://test.desprendete.com${this.$route.fullPath}&redirect_uri=https://test.desprendete.com${this.$route.fullPath}`">
+              <a :href="shareFB()">
                 <img src="/fb.png" alt="share on facebook">
               </a>
-              <a :href="`https://www.facebook.com/dialog/share?app_id=1031588773519678&display=popup&href=https://test.desprendete.com${this.$route.fullPath}&redirect_uri=https://test.desprendete.com${this.$route.fullPath}`">
+              <a :href="shareFB()">
                 <img src="/tw.jpg" alt="share on twitter">
               </a>
             </div>
@@ -66,6 +66,12 @@
       return {
         title: this.product.name,
         meta: this.product.images.map(i => ({ hid: 'og-image', property: 'og-image', content: i.secure_url }))
+      }
+    },
+
+    methods: {
+      shareFB () {
+        return `https://www.facebook.com/dialog/share?app_id=1031588773519678&display=popup&href=${process.env.BASE_URL}${this.$route.fullPath}&redirect_uri=${process.env.BASE_URL}${this.$route.fullPath}`
       }
     }
   }
