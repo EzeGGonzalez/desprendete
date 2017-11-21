@@ -20,6 +20,7 @@
     "axios": "^0.17.1",
     "bootstrap": "^4.0.0-beta.2",
     "bootstrap-vue": "^1.0.2",
+    "lodash.startcase": "^4.4.0",
     "nuxt": "^1.0.0-rc11",
     "popper.js": "^1.12.9",
     "vue-masonry": "^0.10.12",
