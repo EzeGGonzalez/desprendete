@@ -40,10 +40,10 @@
             <p>Compartí con tus amigos</p>
 
             <div class="share-icons">
-              <a :href="shareFB()">
+              <a href="aaa">
                 <img src="/fb.png" alt="share on facebook">
               </a>
-              <a :href="shareFB()">
+              <a href="aaa">
                 <img src="/tw.jpg" alt="share on twitter">
               </a>
             </div>
