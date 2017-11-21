@@ -61,6 +61,7 @@ end
 task :npmbuild do
   in_path(fetch(:current_path)) do
     command %{npm install}
+    command %{npm run build}
   end
 end
 
