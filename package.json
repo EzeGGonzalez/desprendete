@@ -21,6 +21,7 @@
     "bootstrap": "^4.0.0-beta.2",
     "bootstrap-vue": "^1.0.2",
     "nuxt": "^1.0.0-rc11",
+    "popper.js": "^1.12.9",
     "vue-masonry": "^0.10.12",
     "vue-no-ssr": "^0.2.0"
   },
@@ -35,7 +36,6 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "node-sass": "^4.6.1",
-    "sass-loader": "^6.0.6",
-    "webpack": "^3.8.1"
+    "sass-loader": "^6.0.6"
   }
 }

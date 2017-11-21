@@ -1,5 +1,3 @@
-const webpack = require('webpack')
-
 module.exports = {
   /*
   ** Headers of the page
@@ -32,10 +30,7 @@ module.exports = {
   
   plugins: [
     '~plugins/axios.js',
-    { src: '~plugins/vue-masonry.js', ssr: false },
-    new webpack.ProvidePlugin({
-      Popper: ['popper.js', 'default']
-    })
+    { src: '~plugins/vue-masonry.js', ssr: false }
   ],
 
   env: {
