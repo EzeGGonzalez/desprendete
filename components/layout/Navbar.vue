@@ -4,7 +4,7 @@
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
     <b-navbar-brand href="/">
-      <img src="/logotipo_desprendete_color_negativo_rojo.svg" alt="Desprendete" height="30">
+      <img src="/logotipo_desprendete_color_negativo_azul.svg" alt="Desprendete" height="30">
     </b-navbar-brand>
 
     <b-collapse is-nav id="nav_collapse">
