@@ -35,9 +35,44 @@
 #product {
   @extend .container;
 
-  .carousel-item {
-    img {
-      width: 100%;
+  .carousel {
+    a {
+      background: none;
+      span {
+        border-radius: 50%;
+        background-color: $brand-secondary;
+        background-size: 20px;
+        height: 30px;
+        width: 30px;
+        padding: 5px;
+      }
+    }
+
+    .carousel-item {
+      img {
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+  
+      &.wider {
+        img {
+          height: 100% !important;
+          width: auto !important;
+          max-width: none !important;
+        }
+      }
+  
+      &.higher {
+        img {
+          width: 100% !important;
+          height: auto !important;
+          max-height: none !important;
+        }
+      }
     }
   }
 
