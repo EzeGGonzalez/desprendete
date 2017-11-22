@@ -71,7 +71,7 @@
 
     methods: {
       shareFB () {
-        return `https://www.facebook.com/dialog/share?app_id=1031588773519678&display=popup&href=${process.env.baseUrl}${$route.fullPath}&redirect_uri=${process.env.baseUrl}${$route.fullPath}`
+        return `https://www.facebook.com/dialog/share?app_id=1031588773519678&display=popup&href=${process.env.baseUrl}${this.$route.fullPath}&redirect_uri=${process.env.baseUrl}${this.$route.fullPath}`
       }
     }
   }
