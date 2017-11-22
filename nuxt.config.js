@@ -28,7 +28,7 @@ module.exports = {
 
   modules: [
     ['bootstrap-vue/nuxt', { css: false }],
-    '@nuxtjs/dotenv'  
+    '@nuxtjs/dotenv'
   ],
   
   plugins: [
@@ -36,7 +36,10 @@ module.exports = {
     { src: '~plugins/vue-masonry.js', ssr: false }
   ],
 
-  env: process.env,
+  env: {
+    baseUrl: process.env.BASE_URL,
+    apiUrl: process.env.API_URL
+  },
   
   /*
   ** Build configuration

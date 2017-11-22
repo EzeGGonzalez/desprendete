@@ -40,10 +40,10 @@
             <p>Compartí con tus amigos</p>
 
             <div class="share-icons">
-              <a href="aaa">
+              <a :href="shareFB()">
                 <img src="/fb.png" alt="share on facebook">
               </a>
-              <a href="aaa">
+              <a :href="shareFB()">
                 <img src="/tw.jpg" alt="share on twitter">
               </a>
             </div>
@@ -71,7 +71,7 @@
 
     methods: {
       shareFB () {
-        return `https://www.facebook.com/dialog/share?app_id=1031588773519678&display=popup&href=${process.env.BASE_URL}${this.$route.fullPath}&redirect_uri=${process.env.BASE_URL}${this.$route.fullPath}`
+        return `https://www.facebook.com/dialog/share?app_id=1031588773519678&display=popup&href=${process.env.baseUrl}${$route.fullPath}&redirect_uri=${process.env.baseUrl}${$route.fullPath}`
       }
     }
   }
