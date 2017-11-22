@@ -47,6 +47,7 @@
       let { data: product } = await axios.get(`/api/products/${params.id}`)
       return { product }
     },
+    
     head () {
       return {
         title: this.product.name,
