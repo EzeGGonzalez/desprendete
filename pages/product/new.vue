@@ -78,16 +78,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import axios from '~/plugins/axios'
-import * as VueGoogleMaps from '~/node_modules/vue2-google-maps/src/main'
-
-Vue.use(VueGoogleMaps, {
-  load: {
-    key: 'AIzaSyAYpgYttpKXABltDVGS8dwcag4Vl4DHmq0',
-    libraries: 'places'
-  }
-})
 
 export default {
   data () {
