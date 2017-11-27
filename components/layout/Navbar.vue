@@ -17,9 +17,11 @@
       <b-navbar-nav class="ml-auto">
 
         <b-nav-form>
-          <b-button size="sm" class="my-2 my-sm-0 btn-outline-white" type="submit">
+          <nuxt-link to="/product/new">
+          <b-button size="sm" class="my-2 my-sm-0 btn-outline-white" type="button">
             <span class="oi oi-camera-slr mr-1"></span> Regalar
           </b-button>
+          </nuxt-link>
         </b-nav-form>
 
         <!-- <b-nav-item-dropdown text="Lang" right>

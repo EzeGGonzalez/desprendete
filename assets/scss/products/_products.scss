@@ -73,6 +73,26 @@
     }
   }
 
+  .media {
+    .pic-wrapper {
+      height: 100px;
+      width: 100px;
+      border-radius: 50%;
+      border: 1px dashed $brand-secondary;
+
+      @extend .p-1;
+      @extend .mr-3;
+
+      .pic {
+        height: 100%;
+        width: 100%;
+        border-radius: 50%;
+        background-size: cover;
+        background-position: center;
+      }
+    }
+  }
+
   .share-icons {
     margin: 0 -5px;
     img {
@@ -82,3 +102,5 @@
     }
   }
 }
+
+@import "new";

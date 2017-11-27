@@ -20,11 +20,6 @@
       let { data: products } = await axios.get(`/api/products`)
       return { products }
     },
-    mounted () {
-      if (typeof this.$redrawVueMasonry === 'function') {
-        // this.$nextTick(() => this.$redrawVueMasonry())
-      }
-    },
     components: {
       Product,
       'no-ssr': NoSSR

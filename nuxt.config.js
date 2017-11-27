@@ -33,6 +33,8 @@ module.exports = {
   
   plugins: [
     '~plugins/axios.js',
+    '~plugins/filters/fullname.js',
+    '~plugins/filters/cloudinary-thumb.js',
     { src: '~plugins/vue-masonry.js', ssr: false }
   ],
 

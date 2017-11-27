@@ -2,7 +2,7 @@
   <div class="item">
     <nuxt-link :to="`/product/${product._id}`">
       <b-card :title="product.name"
-        :img-src="product.images[0].secure_url"
+        :img-src="product.mainImage | cloudinaryThumb"
         :img-alt="product.name"
         img-top
         tag="article" :id="`product-${product._id}`">
@@ -17,8 +17,8 @@ export default {
   props: ['product'],
   mounted () {
     let cardWidth = document.querySelector('.card-img-top').offsetWidth
-    let incFactor = cardWidth / this.product.images[0].width
-    document.querySelector(`#product-${this.product._id} img`).style.height = `${this.product.images[0].height * incFactor}px`
+    let incFactor = cardWidth / this.product.mainImage.width
+    document.querySelector(`#product-${this.product._id} img`).style.height = `${this.product.mainImage.height * incFactor}px`
   }
 }
 </script>
