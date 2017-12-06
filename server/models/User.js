@@ -11,7 +11,8 @@ User.add({
 	name: { type: Types.Name, required: true, index: true },
 	email: { type: Types.Email, initial: true, required: true, unique: true, index: true },
 	password: { type: Types.Password, initial: true, required: true },
-	facebookId: { type: Types.Text }
+	facebookId: { type: Types.Text },
+	photo: { type: Types.CloudinaryImage }
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true },
 });

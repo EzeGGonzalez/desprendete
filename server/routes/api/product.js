@@ -6,18 +6,19 @@ var Product = keystone.list('Product');
  * List Products
  */
 exports.list = function(req, res) {
-  Product.model.find(function(err, items) {
-
-    if (err) return res.json({ err: err });
-
-    res.json(items);
-
+  Product.model
+    .find()
+    .populate('owner')
+    .exec(function(err, items) {
+      if (err) return res.json({ err: err });
+      res.json(items);
   });
 }
 
 exports.get = function (req, res) {
   Product.model
     .findOne({slug: req.params.id})
+    .populate('owner')
     .exec(function(err, item) {
       if (err) return res.json({ err: err });
       if (!item) return res.json('not found');
