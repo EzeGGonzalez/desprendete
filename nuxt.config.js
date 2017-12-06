@@ -33,14 +33,16 @@ module.exports = {
   
   plugins: [
     { src: '~plugins/axios.js', ssr: false },
+    { src: '~plugins/vue-masonry.js', ssr: false },
+    { src: '~plugins/maps.js', ssr: false },
     '~plugins/filters/fullname.js',
     '~plugins/filters/cloudinary-thumb.js',
-    { src: '~plugins/vue-masonry.js', ssr: false }
   ],
 
   env: {
     baseUrl: process.env.BASE_URL,
-    apiUrl: process.env.API_URL
+    apiUrl: process.env.API_URL,
+    GMAPS_KEY: process.env.GMAPS_KEY
   },
   /*
   ** Build configuration
