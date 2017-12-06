@@ -12,4 +12,9 @@ main {
   @extend .pt-5;
 }
 
+#notifications {
+  @extend .mt-5;
+}
+
+@import "login";
 @import "products/products";

@@ -1,0 +1,14 @@
+#login {
+  .card {
+    text-align: center;
+
+    img {
+      width: 100%;
+      @extend .mb-5;
+    }
+
+    a {
+      @extend .mb-4;
+    }
+  }
+}

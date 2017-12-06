@@ -1,5 +1,4 @@
 const { Nuxt, Builder } = require('nuxt');
-
 /**
  * This file is where you define your application routes and controllers.
  *
@@ -63,8 +62,11 @@ exports = module.exports = function (app) {
 		res.send(200);
 	});
 
+	app.get('/auth/facebook', routes.api.login.authFacebook);
+	app.get('/auth/facebook/callback', routes.api.login.authFacebookCallback);
+
 	// Views
-	app.get('/back', routes.views.index);
+	// app.get('/back', routes.views.index);
 	app.get('/gallery', routes.views.gallery);
 
 	// API

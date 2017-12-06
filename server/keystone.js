@@ -5,13 +5,16 @@ require('dotenv').config();
 // Require keystone
 var keystone = require('keystone');
 
+// Require Passport
+var passport = require('passport');
+
 // Initialise Keystone with your project's configuration.
 // See http://keystonejs.com/guide/config for available options
 // and documentation.
 
 keystone.init({
-	'name': 'desprendete-api',
-	'brand': 'desprendete-api',
+	'name': 'desprendete',
+	'brand': 'desprendete',
 
 	'sass': process.cwd() + '/server/public',
 	'static': process.cwd() + '/server/public',
@@ -41,9 +44,11 @@ keystone.set('locals', {
 	editable: keystone.content.editable,
 });
 
+keystone.pre("routes", passport.initialize());
+keystone.pre("routes", passport.session());
+
 // Load your project's Routes
 keystone.set('routes', require('./routes'));
-
 
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {

@@ -28,6 +28,8 @@
     "marker-clusterer-plus": "^2.1.4",
     "node-sass-middleware": "^0.11.0",
     "nuxt": "^1.0.0-rc11",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
     "popper.js": "^1.12.9",
     "pug": "^2.0.0-rc.4",
     "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony",
