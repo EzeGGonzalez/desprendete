@@ -101,6 +101,28 @@
       width: 35px;
     }
   }
+
+  .map {
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    &:after {
+      top: 50%;
+      left: 50%;
+      z-index: 1;
+      width: 32%;
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      padding-bottom: 32%;
+      margin: -16% 0 0 -16%;
+      pointer-events: none;
+      background-color: black;
+      opacity: 0.3;
+    }
+  }
 }
 
 @import "new";

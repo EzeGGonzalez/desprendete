@@ -1,6 +1,6 @@
 <template>
   <div class="item">
-    <nuxt-link :to="`/product/${product._id}`">
+    <nuxt-link :to="`/product/${product.slug}`">
       <b-card :title="product.name"
         :img-src="product.mainImage | cloudinaryThumb"
         :img-alt="product.name"

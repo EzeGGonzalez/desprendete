@@ -18,6 +18,7 @@
 
         <b-nav-form>
           <nuxt-link to="/product/new">
+          
           <b-button size="sm" class="my-2 my-sm-0 btn-outline-white" type="button">
             <span class="oi oi-camera-slr mr-1"></span> Regalar
           </b-button>

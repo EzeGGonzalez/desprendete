@@ -64,11 +64,13 @@
 
       <b-form-group id="address_group"
                     label="Ubicación" label-for="address">
-        <gmap-autocomplete
-          id="address"
-          class="form-control"
-          @place_changed="setPlace">
-        </gmap-autocomplete>
+        <no-ssr>
+          <gmap-autocomplete
+            id="address"
+            class="form-control"
+            @place_changed="setPlace">
+          </gmap-autocomplete>
+        </no-ssr>
       </b-form-group>
 
       <b-button type="submit" variant="primary">Submit</b-button>
@@ -81,6 +83,7 @@
 import axios from '~/plugins/axios'
 
 export default {
+  middleware: 'auth',
   data () {
     return {
       place: null,
@@ -119,6 +122,10 @@ export default {
 
       formData.append('name', this.form.name)
       formData.append('description', this.form.description)
+      formData.append('status', this.form.status)
+      formData.append('condition', this.form.condition)
+      formData.append('address', [ this.place.geometry.location.lng(), this.place.geometry.location.lat() ])
+
       formData.append('mainImage', this.form.mainImage)
       this.form.images.forEach((img, i) => formData.append(`images`, img))
 
@@ -128,12 +135,14 @@ export default {
         }
       })
 
-      console.log('fin')
+      this.$router.replace({ path: '/' })
+      this.$store.commit('ADD_ALERT_SUCCESS', 'El producto fue creado exitosamente.')
     },
     addImage () {
       this.form.images.push({})
     },
     setPlace (place) {
+      console.log(place)
       this.place = place
     }
   }

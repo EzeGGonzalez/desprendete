@@ -5,7 +5,9 @@ var Types = keystone.Field.Types;
  * User Model
  * ==========
  */
-var Product = new keystone.List('Product');
+var Product = new keystone.List('Product', {
+  autokey: { path: 'slug', from: 'name _id', unique: true }  
+});
 
 Product.add({
 	name: { type: Types.Text, initial: true, required: true },
@@ -15,7 +17,8 @@ Product.add({
   address: { type: Types.GeoPoint },
   mainImage: { type: Types.CloudinaryImage },
   images: { type: Types.CloudinaryImages },
-  owner: { type: Types.Relationship, ref: 'User' }  
+  createdAt: { type: Types.Datetime, default: Date.now },  
+  owner: { type: Types.Relationship, ref: 'User' }
 });
 
 /**

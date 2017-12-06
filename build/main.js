@@ -94,13 +94,16 @@ __webpack_require__(0).config();
 // Require keystone
 var keystone = __webpack_require__(1);
 
+// Require Passport
+var passport = __webpack_require__(4);
+
 // Initialise Keystone with your project's configuration.
 // See http://keystonejs.com/guide/config for available options
 // and documentation.
 
 keystone.init({
-	'name': 'desprendete-api',
-	'brand': 'desprendete-api',
+	'name': 'desprendete',
+	'brand': 'desprendete',
 
 	'sass': process.cwd() + '/server/public',
 	'static': process.cwd() + '/server/public',
@@ -130,8 +133,11 @@ keystone.set('locals', {
 	editable: keystone.content.editable
 });
 
+keystone.pre("routes", passport.initialize());
+keystone.pre("routes", passport.session());
+
 // Load your project's Routes
-keystone.set('routes', __webpack_require__(4));
+keystone.set('routes', __webpack_require__(5));
 
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
@@ -150,12 +156,17 @@ keystone.start();
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport");
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _require = __webpack_require__(5),
+var _require = __webpack_require__(6),
     Nuxt = _require.Nuxt,
     Builder = _require.Builder;
-
 /**
  * This file is where you define your application routes and controllers.
  *
@@ -176,10 +187,10 @@ var _require = __webpack_require__(5),
  * http://expressjs.com/api.html#app.VERB
  */
 
-var path = __webpack_require__(6);
+var path = __webpack_require__(7);
 
 var keystone = __webpack_require__(1);
-var middleware = __webpack_require__(7);
+var middleware = __webpack_require__(8);
 
 var importRoutes = keystone.importer(path.join(process.cwd(), 'server/routes'));
 
@@ -196,7 +207,7 @@ var routes = {
 // Setup Route Bindings
 exports = module.exports = function (app) {
 	// Import and Set Nuxt.js options
-	var config = __webpack_require__(8);
+	var config = __webpack_require__(9);
 	config.dev = !("development" === 'production');
 
 	// Init Nuxt.js
@@ -220,8 +231,11 @@ exports = module.exports = function (app) {
 		res.send(200);
 	});
 
+	app.get('/auth/facebook', routes.api.login.authFacebook);
+	app.get('/auth/facebook/callback', routes.api.login.authFacebookCallback);
+
 	// Views
-	app.get('/back', routes.views.index);
+	// app.get('/back', routes.views.index);
 	app.get('/gallery', routes.views.gallery);
 
 	// API
@@ -238,19 +252,19 @@ exports = module.exports = function (app) {
 };
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = require("nuxt");
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -306,7 +320,7 @@ exports.requireUser = function (req, res, next) {
 };
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(0).config();
@@ -329,11 +343,12 @@ module.exports = {
 
   modules: [['bootstrap-vue/nuxt', { css: false }], '@nuxtjs/dotenv'],
 
-  plugins: [{ src: '~plugins/axios.js', ssr: false }, '~plugins/filters/fullname.js', '~plugins/filters/cloudinary-thumb.js', { src: '~plugins/vue-masonry.js', ssr: false }],
+  plugins: [{ src: '~plugins/axios.js', ssr: false }, { src: '~plugins/vue-masonry.js', ssr: false }, { src: '~plugins/maps.js', ssr: false }, '~plugins/filters/fullname.js', '~plugins/filters/cloudinary-thumb.js'],
 
   env: {
     baseUrl: process.env.BASE_URL,
-    apiUrl: process.env.API_URL
+    apiUrl: process.env.API_URL,
+    GMAPS_KEY: process.env.GMAPS_KEY
   },
   /*
   ** Build configuration

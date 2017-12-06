@@ -3,6 +3,12 @@
     <div class="row">
       <div class="col-md-6">
         <b-carousel id="product-images" controls indicators>
+          <b-carousel-slide
+            :key="product.mainImage._id"
+            :img-src="product.mainImage.secure_url"
+            :class="product.mainImage.width > product.mainImage.height ? 'wider' : 'higher'"
+          ></b-carousel-slide>
+
           <b-carousel-slide v-for="(img, index) in product.images"
             :key="img._id"
             :img-src="img.secure_url"
@@ -28,7 +34,13 @@
 
         <div class="card mb-2">
           <div class="card-body">
-            <h3 class="name">{{product.name}}</h3>
+            <h3 class="name m-0 p-0">{{product.name}}</h3>
+          </div>
+        </div>
+
+        <div class="card mb-2">
+          <div class="card-body p-0 map">
+            <img :src="imgMap()" alt="">
           </div>
         </div>
 
@@ -90,6 +102,10 @@
     },
 
     methods: {
+      imgMap () {
+        return `https://maps.googleapis.com/maps/api/staticmap?center=${this.product.address[1]},${this.product.address[0]}&zoom=14&size=450x180&key=${process.env.GMAPS_KEY}`
+      },
+
       shareFB () {
         return `https://www.facebook.com/dialog/share?app_id=1031588773519678&display=popup&href=${this.fullUrl}&redirect_uri=${this.fullUrl}`
       },
