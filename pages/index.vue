@@ -13,12 +13,12 @@
 <script>
   import Product from '~/components/product/Product.vue'
   import NoSSR from 'vue-no-ssr'
-  import axios from '~/plugins/axios'
 
   export default {
-    async asyncData ({ params }) {
-      let { data: products } = await axios.get(`/api/products`)
-      return { products }
+    async asyncData ({ params, app }) {
+      return {
+        products: await app.$axios.$get(`/api/products`, {withCredentials: true})
+      }
     },
     components: {
       Product,

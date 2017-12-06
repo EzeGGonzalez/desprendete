@@ -52,7 +52,7 @@
           </div>
         </div>
 
-        <div class="card mb-2" v-if="hasTransaction">
+        <div class="card mb-2" v-if="hasTransaction()">
           <div class="card-body">
             <h4>Datos de contacto</h4>
             Nombre: {{product.owner | fullname}} <br>
@@ -86,12 +86,10 @@
 </template>
 
 <script>
-  import axios from '~/plugins/axios'
-
   export default {
-    async asyncData ({ params }) {
-      let { data: product } = await axios.get(`/api/products/${params.id}`)
-      return { product, transaction }
+    async asyncData ({ params, app }) {
+      let { data: product } = await app.$axios.get(`/api/products/${params.id}`)
+      return { product }
     },
 
     head () {
@@ -110,12 +108,15 @@
 
     data () {
       return {
-        fullUrl: `${process.env.baseUrl}${this.$route.fullPath}`,
-        hasTransaction: false
+        fullUrl: `${process.env.baseUrl}${this.$route.fullPath}`
       }
     },
 
     methods: {
+      hasTransaction () {
+        return this.$store.state.transactions.find(t => t.product === this.product._id)
+      },
+
       imgMap () {
         return `https://maps.googleapis.com/maps/api/staticmap?center=${this.product.address[1]},${this.product.address[0]}&zoom=14&size=450x180&key=${process.env.GMAPS_KEY}`
       },

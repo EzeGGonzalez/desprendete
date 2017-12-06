@@ -26,6 +26,19 @@
             margin-bottom: 0;
             @extend .h6;
           }
+
+          .interested {
+            position: absolute;
+            top: 0;
+            right: 0;
+            @extend .m-2;
+
+            background-color: $brand-secondary;
+            border-radius: 50%;
+            @extend .p-2;
+
+            color: white;
+          }
         }
       }
     }

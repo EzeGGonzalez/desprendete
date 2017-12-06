@@ -28,11 +28,16 @@ module.exports = {
 
   modules: [
     ['bootstrap-vue/nuxt', { css: false }],
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/axios'    
   ],
+
+  axios: {
+    baseURL: process.env.API_URL
+  },   
   
   plugins: [
-    { src: '~plugins/axios.js', ssr: false },
+    // { src: '~plugins/axios.js', ssr: false },
     { src: '~plugins/vue-masonry.js', ssr: false },
     { src: '~plugins/maps.js', ssr: false },
     '~plugins/filters/fullname.js',

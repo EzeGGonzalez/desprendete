@@ -16,6 +16,7 @@
     "pm2": "if pm2 list | grep $APP_NAME; then npm run pm2:restart; else npm run pm2:start; fi"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^4.5.0",
     "@nuxtjs/dotenv": "^1.1.0",
     "axios": "^0.17.1",
     "backpack-core": "^0.4.3",
