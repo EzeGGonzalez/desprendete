@@ -6,6 +6,7 @@ var Product = keystone.list('Product');
  * List Products
  */
 exports.list = function(req, res) {
+  console.log(req.user)
   Product.model
     .find()
     .populate('owner')
