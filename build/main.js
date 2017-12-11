@@ -216,7 +216,7 @@ var routes = {
 exports = module.exports = function (app) {
 	// Import and Set Nuxt.js options
 	var config = __webpack_require__(9);
-	config.dev = !("development" === 'production');
+	config.dev = !("production" === 'production');
 
 	// Init Nuxt.js
 	var nuxt = new Nuxt(config);
@@ -361,7 +361,7 @@ module.exports = {
 
   plugins: [
   // { src: '~plugins/axios.js', ssr: false },
-  { src: '~plugins/vue-masonry.js', ssr: false }, { src: '~plugins/maps.js', ssr: false }, '~plugins/filters/fullname.js', '~plugins/filters/cloudinary-thumb.js'],
+  { src: '~plugins/vue-masonry.js', ssr: false }, { src: '~plugins/maps.js', ssr: false }, '~plugins/filters/fullname.js', '~plugins/filters/cloudinary-thumb.js', '~plugins/directives.js'],
 
   env: {
     baseUrl: process.env.BASE_URL,
@@ -384,6 +384,12 @@ module.exports = {
           exclude: /(node_modules)/
         });
       }
+
+      config.module.rules.splice(0, 0, {
+        test: /\.js$/,
+        include: [path.resolve(__dirname, './node_modules/vue2-google-maps')],
+        loader: 'babel-loader'
+      });
     }
   }
 };

@@ -68,6 +68,12 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+
+      config.module.rules.splice(0, 0, {
+        test: /\.js$/,
+        include: [path.resolve(__dirname, './node_modules/vue2-google-maps')],
+        loader: 'babel-loader',
+      })
     }
   }
 }

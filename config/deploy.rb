@@ -9,9 +9,9 @@ require 'mina/git'
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-set :application_name, 'desprendete-web'
+set :application_name, 'desprendete'
 set :domain, '104.131.189.236'
-set :deploy_to, '/var/www/desprendete-web'
+set :deploy_to, '/var/www/desprendete'
 set :repository, 'https://github.com/EzeGGonzalez/desprendete.git'
 set :branch, 'master'
 set :user, 'desprendete'
