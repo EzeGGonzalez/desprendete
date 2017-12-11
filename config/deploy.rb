@@ -16,7 +16,7 @@ set :repository, 'https://github.com/EzeGGonzalez/desprendete.git'
 set :branch, 'master'
 set :user, 'desprendete'
 set :shared_dirs, fetch(:shared_dirs, []).push('node_modules')
-set :shared_files, fetch(:shared_files, []).push('.env')
+set :shared_files, fetch(:shared_files, []).push('.env', 'package-lock.json')
 set :keep_releases, 2
 
 # Optional settings:
@@ -60,7 +60,7 @@ end
 
 task :npmbuild do
   in_path(fetch(:current_path)) do
-    command %{npm install}
+    command %{npm install --no-package-lock}
     command %{npm run build}
   end
 end

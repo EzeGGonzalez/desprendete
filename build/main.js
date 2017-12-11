@@ -216,7 +216,7 @@ var routes = {
 exports = module.exports = function (app) {
 	// Import and Set Nuxt.js options
 	var config = __webpack_require__(9);
-	config.dev = !("production" === 'production');
+	config.dev = !("development" === 'production');
 
 	// Init Nuxt.js
 	var nuxt = new Nuxt(config);
@@ -356,7 +356,8 @@ module.exports = {
   modules: [['bootstrap-vue/nuxt', { css: false }], '@nuxtjs/dotenv', '@nuxtjs/axios', ['nuxt-sass-resources-loader', path.resolve(__dirname, 'assets/scss/resources.scss')]],
 
   axios: {
-    baseURL: process.env.API_URL
+    baseURL: process.env.AXIOS_BASE_URL,
+    browserBaseURL: process.env.AXIOS_BROWSER_BASE_URL
   },
 
   plugins: [
