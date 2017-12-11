@@ -44,8 +44,6 @@
 </template>
 
 <script>
-import axios from '~/plugins/axios'
-
 function copy (o) {
   var output, v, key
 
@@ -86,7 +84,7 @@ export default {
         formData.append('photo', this.newPhoto)
       }
 
-      await axios.put(`/api/user/${this.$store.state.user._id}`, formData, {
+      await app.$axios.$put(`/api/user/${this.$store.state.user._id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

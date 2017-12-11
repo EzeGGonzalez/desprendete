@@ -61,8 +61,6 @@
 </template>
 
 <script>
-import axios from '~/plugins/axios'
-
 import CategoryList from '~/components/product/new/CategoryList.vue'
 import UploadImages from '~/components/product/new/UploadImages.vue'
 
@@ -115,7 +113,7 @@ export default {
       formData.append('mainImage', this.form.mainImage)
       this.form.images.forEach((img, i) => formData.append(`images`, img))
 
-      await axios.post('/api/products', formData, {
+      await app.$axios.$post('/api/products', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
