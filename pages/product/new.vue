@@ -18,27 +18,9 @@
         </b-form-textarea>
       </b-form-group>
 
-      <b-row>
-        <b-col md="3">
-          <b-form-group id="main_image_group" label="Foto Principal" label-for="main_image">
-            <b-form-file name="mainImage" ref="theMainImage" id="main_image" v-model="form.mainImage"></b-form-file>
-          </b-form-group>
-        </b-col>
+      <category-list :form="form" />
 
-        <b-col md="3" v-for="(image, i) in form.images" :key="i">
-          <b-form-group :id="`image_${i}_group`"
-              :label="i === 0 ? 'Fotos' : '&nbsp;&nbsp;'"
-              :label-for="`image_${i}`">
-            <b-form-file name="images[]" :id="`image_${i}`" v-model="form.images[i]"></b-form-file>
-          </b-form-group>
-        </b-col>
-        
-        <b-col md="3">
-          <b-form-group id="add_image_group" label="&nbsp;&nbsp;" label-for="add_image">
-            <b-button v-on:click="addImage" variant="primary">Agregar foto</b-button>
-          </b-form-group>
-        </b-col>
-      </b-row>
+      <upload-images :form="form" />
 
       <b-row>
         <b-col md="6">
@@ -73,14 +55,16 @@
         </no-ssr>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="secondary">Reset</b-button>
+      <b-button type="submit" variant="primary">Crear</b-button>
     </b-form>
   </div>
 </template>
 
 <script>
 import axios from '~/plugins/axios'
+
+import CategoryList from '~/components/product/new/CategoryList.vue'
+import UploadImages from '~/components/product/new/UploadImages.vue'
 
 export default {
   middleware: 'auth',
@@ -96,7 +80,9 @@ export default {
         condition: null,
         address: '',
         mainImage: null,
-        images: []
+        images: [],
+        category: null,
+        subcategory: null
       },
       conditions: [
         { text: 'Seleccionar', value: null },
@@ -138,13 +124,22 @@ export default {
       this.$router.replace({ path: '/' })
       this.$store.commit('ADD_ALERT_SUCCESS', 'El producto fue creado exitosamente.')
     },
-    addImage () {
-      this.form.images.push({})
-    },
     setPlace (place) {
-      console.log(place)
       this.place = place
     }
+  },
+
+  components: {
+    CategoryList,
+    UploadImages
   }
 }
 </script>
+
+
+<style lang="sass" scoped>
+
+#new-product
+  @extend .container
+
+</style>

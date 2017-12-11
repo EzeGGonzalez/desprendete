@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="md" type="dark" variant="primary">
+  <b-navbar id="main-nav" toggleable="md" type="dark" variant="primary">
 
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
@@ -16,6 +16,16 @@
 
       <b-navbar-nav class="ml-auto">
 
+        <b-nav-item-dropdown v-if="$store.state.user" class="profile-menu" right>
+          <template slot="button-content">
+            <user-pic :user="$store.state.user"/>
+          </template>
+
+          <b-dropdown-item :to="`/product/new`">Regalar</b-dropdown-item>
+          <b-dropdown-item :to="`/user/${$store.state.user._id}`">Mi perfil</b-dropdown-item>
+          <b-dropdown-item href="/logout">Cerrar sesión</b-dropdown-item>
+        </b-nav-item-dropdown>
+
         <b-nav-form>
           <nuxt-link to="/product/new">
           
@@ -31,16 +41,49 @@
           <b-dropdown-item href="#">RU</b-dropdown-item>
           <b-dropdown-item href="#">FA</b-dropdown-item>
         </b-nav-item-dropdown> -->
-
-        <!-- <b-nav-item-dropdown right>
-          <template slot="button-content">
-            <em>User</em>
-          </template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Signout</b-dropdown-item>
-        </b-nav-item-dropdown> -->
       </b-navbar-nav>
 
     </b-collapse>
   </b-navbar>
 </template>
+
+<script>
+import UserPic from '~/components/UserPic.vue'
+
+export default {
+  components: {
+    UserPic
+  }
+}
+</script>
+
+<style lang="scss">
+  #main-nav {
+    .dropdown-menu {
+      padding: 0;
+      overflow: hidden;
+      
+      .dropdown-item:focus, .dropdown-item:hover {
+        outline: 0;
+      }
+    }
+
+    .profile-menu {
+      margin-right: 1rem;
+
+      .dropdown-toggle {
+        display: flex;
+        align-items: center;
+      }
+
+      .pic-wrapper {
+        .pic {
+          width: 40px;
+          height: 40px;
+
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+</style>

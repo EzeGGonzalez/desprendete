@@ -62,7 +62,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -85,6 +85,12 @@ module.exports = require("lodash");
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("path");
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Simulate config options from your production environment by
@@ -95,7 +101,7 @@ __webpack_require__(0).config();
 var keystone = __webpack_require__(1);
 
 // Require Passport
-var passport = __webpack_require__(4);
+var passport = __webpack_require__(5);
 
 // Initialise Keystone with your project's configuration.
 // See http://keystonejs.com/guide/config for available options
@@ -107,7 +113,7 @@ keystone.init({
 
 	'sass': process.cwd() + '/server/public',
 	'static': process.cwd() + '/server/public',
-	'favicon': process.cwd() + '/server/public/favicon.ico',
+	'favicon': process.cwd() + '/static/favicon.ico',
 	'views': process.cwd() + '/server/templates/views',
 	'updates': process.cwd() + '/server/updates',
 	'view engine': 'pug',
@@ -116,6 +122,8 @@ keystone.init({
 
 	'auto update': true,
 	'session': true,
+	'session store': 'mongo',
+
 	'auth': true,
 	'user model': 'User'
 });
@@ -137,7 +145,7 @@ keystone.pre("routes", passport.initialize());
 keystone.pre("routes", passport.session());
 
 // Load your project's Routes
-keystone.set('routes', __webpack_require__(5));
+keystone.set('routes', __webpack_require__(6));
 
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
@@ -155,16 +163,16 @@ if (!process.env.MAILGUN_API_KEY || !process.env.MAILGUN_DOMAIN) {
 keystone.start();
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport");
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _require = __webpack_require__(6),
+var _require = __webpack_require__(7),
     Nuxt = _require.Nuxt,
     Builder = _require.Builder;
 /**
@@ -187,7 +195,7 @@ var _require = __webpack_require__(6),
  * http://expressjs.com/api.html#app.VERB
  */
 
-var path = __webpack_require__(7);
+var path = __webpack_require__(3);
 
 var keystone = __webpack_require__(1);
 var middleware = __webpack_require__(8);
@@ -231,6 +239,7 @@ exports = module.exports = function (app) {
 		res.send(200);
 	});
 
+	app.get('/logout', routes.api.login.logout);
 	app.get('/auth/facebook', routes.api.login.authFacebook);
 	app.get('/auth/facebook/callback', routes.api.login.authFacebookCallback);
 
@@ -239,9 +248,17 @@ exports = module.exports = function (app) {
 	app.get('/gallery', routes.views.gallery);
 
 	// API
+	app.get('/api/categories', routes.api.category.list);
+
+	app.put('/api/user/:id', routes.api.user.update);
+
+	app.post('/api/products', routes.api.product.create);
 	app.get('/api/products', routes.api.product.list);
 	app.get('/api/products/:id', routes.api.product.get);
-	app.post('/api/products', routes.api.product.create);
+
+	app.post('/api/transactions', routes.api.transaction.create);
+
+	app.get('/api/user/:id/transactions', routes.api.user.listTransactions);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);
@@ -252,16 +269,10 @@ exports = module.exports = function (app) {
 };
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = require("nuxt");
-
-/***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("nuxt");
 
 /***/ }),
 /* 8 */
@@ -323,6 +334,7 @@ exports.requireUser = function (req, res, next) {
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* WEBPACK VAR INJECTION */(function(__dirname) {var path = __webpack_require__(3);
 __webpack_require__(0).config();
 
 module.exports = {
@@ -341,9 +353,15 @@ module.exports = {
 
   css: [{ src: '~assets//open-iconic/font/css/open-iconic.css' }, { src: '~assets//open-iconic/font/css/open-iconic-bootstrap.css' }, { src: '~assets/scss/main.scss', lang: 'scss' }],
 
-  modules: [['bootstrap-vue/nuxt', { css: false }], '@nuxtjs/dotenv'],
+  modules: [['bootstrap-vue/nuxt', { css: false }], '@nuxtjs/dotenv', '@nuxtjs/axios', ['nuxt-sass-resources-loader', path.resolve(__dirname, 'assets/scss/resources.scss')]],
 
-  plugins: [{ src: '~plugins/axios.js', ssr: false }, { src: '~plugins/vue-masonry.js', ssr: false }, { src: '~plugins/maps.js', ssr: false }, '~plugins/filters/fullname.js', '~plugins/filters/cloudinary-thumb.js'],
+  axios: {
+    baseURL: process.env.API_URL
+  },
+
+  plugins: [
+  // { src: '~plugins/axios.js', ssr: false },
+  { src: '~plugins/vue-masonry.js', ssr: false }, { src: '~plugins/maps.js', ssr: false }, '~plugins/filters/fullname.js', '~plugins/filters/cloudinary-thumb.js'],
 
   env: {
     baseUrl: process.env.BASE_URL,
@@ -369,6 +387,7 @@ module.exports = {
     }
   }
 };
+/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ })
 /******/ ]);

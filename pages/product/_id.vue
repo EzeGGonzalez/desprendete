@@ -21,9 +21,8 @@
         <div class="card mb-2">
           <div class="card-body">
             <div class="media">
-              <div class="pic-wrapper">
-                <div class="pic" :style="{ backgroundImage: 'url(' + product.owner.photo.secure_url + ')' }"></div>
-              </div>
+              <user-pic :user="product.owner"/>
+              
               <div class="media-body">
                 <h5 class="my-0">{{product.owner | fullname}}</h5>
                 <nuxt-link :to="`/users/${product.owner._id}`">Ver perfil</nuxt-link>
@@ -36,9 +35,9 @@
           <div class="card-body">
             <h3 class="name mb-4 p-0">{{product.name}}</h3>
 
-            <b-row class="mb-3">
-              <b-col md="6">
-                <b-button block variant="primary">
+            <b-row>
+              <b-col md="6" v-if="!hasTransaction()">
+                <b-button block variant="primary" @click="wantIt(product)">
                   Me interesa
                 </b-button>
               </b-col>
@@ -86,6 +85,9 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+  import UserPic from '~/components/UserPic.vue'
+
   export default {
     async asyncData ({ params, app }) {
       let { data: product } = await app.$axios.get(`/api/products/${params.id}`)
@@ -113,6 +115,8 @@
     },
 
     methods: {
+      ...mapActions(['wantIt']),
+
       hasTransaction () {
         return this.$store.state.transactions.find(t => t.product === this.product._id)
       },
@@ -128,6 +132,10 @@
       shareTW () {
         return `http://twitter.com/share?text=text goes here&url=${this.fullUrl}`
       }
+    },
+
+    components: {
+      UserPic
     }
   }
 </script>
