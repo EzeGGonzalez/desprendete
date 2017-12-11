@@ -35,7 +35,8 @@ module.exports = {
   ],
 
   axios: {
-    baseURL: process.env.API_URL
+    baseURL: process.env.AXIOS_BASE_URL,
+    browserBaseURL: process.env.AXIOS_BROWSER_BASE_URL
   },   
   
   plugins: [
