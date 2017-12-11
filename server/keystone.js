@@ -18,7 +18,7 @@ keystone.init({
 
 	'sass': process.cwd() + '/server/public',
 	'static': process.cwd() + '/server/public',
-	'favicon': process.cwd() + '/server/public/favicon.ico',
+	'favicon': process.cwd() + '/static/favicon.ico',
 	'views': process.cwd() + '/server/templates/views',
 	'updates': process.cwd() + '/server/updates',
 	'view engine': 'pug',
@@ -27,6 +27,8 @@ keystone.init({
 
 	'auto update': true,
 	'session': true,
+	'session store': 'mongo',
+	
 	'auth': true,
 	'user model': 'User',
 });
