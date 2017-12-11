@@ -1,3 +1,4 @@
+const path = require('path')
 require('dotenv').config()
 
 module.exports = {
@@ -29,7 +30,8 @@ module.exports = {
   modules: [
     ['bootstrap-vue/nuxt', { css: false }],
     '@nuxtjs/dotenv',
-    '@nuxtjs/axios'    
+    '@nuxtjs/axios',
+    ['nuxt-sass-resources-loader', path.resolve(__dirname, 'assets/scss/resources.scss')]
   ],
 
   axios: {
@@ -42,6 +44,7 @@ module.exports = {
     { src: '~plugins/maps.js', ssr: false },
     '~plugins/filters/fullname.js',
     '~plugins/filters/cloudinary-thumb.js',
+    '~plugins/directives.js',
   ],
 
   env: {
