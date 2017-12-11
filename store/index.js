@@ -11,6 +11,7 @@ export const mutations = {
   },
 
   SET_USER: function (state, user) {
+    console.log(user)
     state.user = user
   },
 
