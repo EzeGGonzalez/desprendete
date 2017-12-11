@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="layout">
     <navbar/>
 
     <notifications/>
@@ -22,3 +22,16 @@
     }
   }
 </script>
+
+<style lang="sass" scoped>
+
+#layout
+  background-color: #f7f7f7
+
+  main
+    @extend .py-5
+
+  #notifications
+    @extend .mt-5
+
+</style>

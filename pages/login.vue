@@ -17,3 +17,17 @@
     </b-row>
   </b-container>
 </template>
+
+<style lang="sass" scoped>
+
+  .card
+    text-align: center
+
+    img
+      width: 100%
+      @extend .mb-5
+
+    a
+      @extend .mb-4
+
+</style>
