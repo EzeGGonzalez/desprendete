@@ -34,13 +34,7 @@ module.exports = {
     ['nuxt-sass-resources-loader', path.resolve(__dirname, 'assets/scss/resources.scss')]
   ],
 
-  axios: {
-    baseURL: process.env.AXIOS_BASE_URL,
-    browserBaseURL: process.env.AXIOS_BROWSER_BASE_URL
-  },   
-  
   plugins: [
-    // { src: '~plugins/axios.js', ssr: false },
     { src: '~plugins/vue-masonry.js', ssr: false },
     { src: '~plugins/maps.js', ssr: false },
     '~plugins/filters/fullname.js',
@@ -51,6 +45,7 @@ module.exports = {
   env: {
     baseUrl: process.env.BASE_URL,
     apiUrl: process.env.API_URL,
+    apiUrlBrowser: process.env.API_URL_BROWSER,
     GMAPS_KEY: process.env.GMAPS_KEY
   },
   /*

@@ -60,7 +60,7 @@ end
 
 task :npmbuild do
   in_path(fetch(:current_path)) do
-    command %{npm install --no-package-lock}
+    command %{npm install}
     command %{npm run build}
   end
 end
