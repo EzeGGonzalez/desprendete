@@ -15,8 +15,8 @@ set :deploy_to, '/var/www/desprendete'
 set :repository, 'https://github.com/EzeGGonzalez/desprendete.git'
 set :branch, 'master'
 set :user, 'desprendete'
-set :shared_dirs, fetch(:shared_dirs, []).push('node_modules')
-set :shared_files, fetch(:shared_files, []).push('.env', 'package-lock.json')
+# set :shared_dirs, fetch(:shared_dirs, []).push('node_modules')
+set :shared_files, fetch(:shared_files, []).push('.env')
 set :keep_releases, 2
 
 # Optional settings:
