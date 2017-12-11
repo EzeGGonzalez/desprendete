@@ -62,6 +62,7 @@ exports = module.exports = function (app) {
 		res.send(200);
 	});
 
+	app.get('/logout', routes.api.login.logout);
 	app.get('/auth/facebook', routes.api.login.authFacebook);
 	app.get('/auth/facebook/callback', routes.api.login.authFacebookCallback);
 
@@ -70,9 +71,15 @@ exports = module.exports = function (app) {
 	app.get('/gallery', routes.views.gallery);
 
 	// API
+	app.get('/api/categories', routes.api.category.list);
+
+	app.put('/api/user/:id', routes.api.user.update);
+
+	app.post('/api/products', routes.api.product.create);
 	app.get('/api/products', routes.api.product.list);
 	app.get('/api/products/:id', routes.api.product.get);
-	app.post('/api/products', routes.api.product.create);
+
+	app.post('/api/transactions', routes.api.transaction.create);
 
 	app.get('/api/user/:id/transactions', routes.api.user.listTransactions);
 

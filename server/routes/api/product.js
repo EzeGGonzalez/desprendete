@@ -6,7 +6,6 @@ var Product = keystone.list('Product');
  * List Products
  */
 exports.list = function(req, res) {
-  console.log(req.user)
   Product.model
     .find()
     .populate('owner')
@@ -29,14 +28,12 @@ exports.get = function (req, res) {
 }
 
 exports.create = function(req, res) {
-    var item = new Product.model(),
-      data = (req.method == 'POST') ? req.body : req.query;
+  var item = new Product.model(),
+    data = (req.method == 'POST') ? req.body : req.query;
         
-    item.getUpdateHandler(req).process(data, function(err) {
-  
-      if (err) return res.json({ error: err });
-  
-      res.json(item);
-  
-    });
-  }
+  item.getUpdateHandler(req).process(data, err => {
+    console.log(err);
+    if (err) return res.json({ error: err });
+    res.json(item);
+  });
+}

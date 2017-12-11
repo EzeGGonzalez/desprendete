@@ -49,5 +49,10 @@ passport.deserializeUser(function(user, done) {
 
 passport.use(strategy);
 
+exports.logout = (req, res) => {
+	req.logout();
+	res.redirect('/');
+};
+
 exports.authFacebook = passport.authenticate('facebook');
 exports.authFacebookCallback = passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login' });
