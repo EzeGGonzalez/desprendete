@@ -1,17 +1,11 @@
 export const state = () => ({
   user: null,
   transactions: [],
-  notifications: [],
-  categories: []
+  notifications: []
 })
 
 export const mutations = {
-  SET_CATEGORIES: (state, categories) => {
-    state.categories = categories
-  },
-
   SET_USER: function (state, user) {
-    console.log(user)
     state.user = user
   },
 
@@ -33,8 +27,6 @@ export const mutations = {
 
 export const actions = {
   async nuxtServerInit ({ commit, dispatch }, { req }) {
-    commit('SET_CATEGORIES', await this.$axios.$get(`/api/categories`))
-
     if (req.user) {
       commit('SET_USER', req.user)
       await dispatch('getTransactions')

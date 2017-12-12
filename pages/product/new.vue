@@ -66,6 +66,7 @@ import UploadImages from '~/components/product/new/UploadImages.vue'
 
 export default {
   middleware: 'auth',
+
   data () {
     return {
       place: null,
@@ -104,6 +105,7 @@ export default {
 
       const formData = new FormData()
 
+      formData.append('owner', this.$store.state.user._id)
       formData.append('name', this.form.name)
       formData.append('description', this.form.description)
       formData.append('status', this.form.status)
@@ -113,7 +115,7 @@ export default {
       formData.append('mainImage', this.form.mainImage)
       this.form.images.forEach((img, i) => formData.append(`images`, img))
 
-      await app.$axios.$post('/api/products', formData, {
+      await this.$axios.$post('/api/products', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

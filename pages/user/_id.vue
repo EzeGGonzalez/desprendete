@@ -84,13 +84,14 @@ export default {
         formData.append('photo', this.newPhoto)
       }
 
-      await app.$axios.$put(`/api/user/${this.$store.state.user._id}`, formData, {
+      let newUser = await this.$axios.$put(`/api/user/${this.$store.state.user._id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       })
 
       this.$router.replace({ path: '/' })
+      this.$store.commit('SET_USER', newUser)
       this.$store.commit('ADD_ALERT_SUCCESS', 'Datos del perfil modificados exitosamente.')
     }
   }

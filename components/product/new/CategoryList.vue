@@ -1,7 +1,7 @@
 <template>
   <b-form-group id="category_group" label="Categoría" label-for="category">
     <div class="category-list">
-      <div @click="setCategory(c)" v-for="(c, i) in $store.state.categories"
+      <div @click="setCategory(c)" v-for="(c, i) in categories"
         :key="i" class="category-wrap" :class="{ active: categoryActive(c) }">
 
         <div class="category">
@@ -9,16 +9,6 @@
           <small>{{c.name}}</small>
         </div>
       </div>
-
-      <b-form-select id="category-select"
-        text-field="name" value-field="_id"
-        :options="categories" required
-        v-model="form.category"
-      >
-        <template slot="first">
-          <option :value="null" disabled>-- Seleccione una categoría --</option>
-        </template>
-      </b-form-select>
     </div>
 
     <b-form-select id="category"
@@ -38,9 +28,13 @@
 export default {
   props: ['form'],
 
+  async mounted () {
+    this.categories = await this.$axios.$get(`/api/categories`)
+  },
+
   data () {
     return {
-      categories: this.$store.state.categories
+      categories: []
     }
   },
 

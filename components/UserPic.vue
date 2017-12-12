@@ -9,8 +9,9 @@ export default {
   props: ['user'],
 
   data () {
+    let user = this.user || this.$store.state.user
     return {
-      image: (this.user.photo && this.user.photo.secure_url) || ''
+      image: (user && user.photo && user.photo.secure_url) || ''
     }
   }
 }

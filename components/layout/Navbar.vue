@@ -18,7 +18,7 @@
 
         <b-nav-item-dropdown v-if="$store.state.user" class="profile-menu" right>
           <template slot="button-content">
-            <user-pic :user="$store.state.user"/>
+            <user-pic/>
           </template>
 
           <b-dropdown-item :to="`/product/new`">Regalar</b-dropdown-item>

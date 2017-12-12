@@ -3,8 +3,9 @@ var keystone = require('keystone');
 var Transaction = keystone.list('Transaction');
 var User = keystone.list('User');
 
+const UserModel = User.model;
+
 exports.listTransactions = function(req, res) {
-  console.log(req.user)
   if (!req.user) {
     res.json([]);
     return;
@@ -26,15 +27,16 @@ exports.update = function(req, res) {
 
     var data = (req.method == 'PUT') ? req.body : req.query;
 
-    console.log(data);
-
-    item.getUpdateHandler(req).process(data, function(err) {
+    item.getUpdateHandler(req).process(data, function(err, user) {
 
       if (err) return res.json({ err: err });
 
-      res.json(item);
-
+      UserModel
+        .findById(req.params.id)
+        .setOptions({ lean: true })
+        .exec(function(err, user) {
+          res.json(user);
+        });
     });
-
   });
 }

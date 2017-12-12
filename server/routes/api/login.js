@@ -40,11 +40,16 @@ const strategy = new FacebookStrategy({
 }, fbCb);
 
 passport.serializeUser(function(user, done) {
-  done(null, user);
+	done(null, user._id);
 });
 
-passport.deserializeUser(function(user, done) {
-  done(null, user);
+passport.deserializeUser(function(id, done) {
+	UserModel
+		.findById(id)
+		.setOptions({ lean: true })
+		.exec(function(err, user) {
+			done(err, user);
+		});
 });
 
 passport.use(strategy);

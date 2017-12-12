@@ -30,9 +30,8 @@ exports.get = function (req, res) {
 exports.create = function(req, res) {
   var item = new Product.model(),
     data = (req.method == 'POST') ? req.body : req.query;
-        
+
   item.getUpdateHandler(req).process(data, err => {
-    console.log(err);
     if (err) return res.json({ error: err });
     res.json(item);
   });

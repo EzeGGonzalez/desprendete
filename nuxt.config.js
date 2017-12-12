@@ -48,6 +48,7 @@ module.exports = {
     apiUrlBrowser: process.env.API_URL_BROWSER,
     GMAPS_KEY: process.env.GMAPS_KEY
   },
+
   /*
   ** Build configuration
   */
