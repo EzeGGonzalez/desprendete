@@ -11,7 +11,7 @@ var Product = new keystone.List('Product', {
 
 Product.add({
 	name: { type: Types.Text, initial: true, required: true },
-	description: { type: Types.Textarea, initial: true, required: true },
+	description: { type: Types.Textarea },
   status: { type: Types.Number },
   condition: { type: Types.Select, options: 'good, broken', emptyOption: false },
   address: { type: Types.GeoPoint },
