@@ -30,9 +30,12 @@ module.exports = {
   modules: [
     ['bootstrap-vue/nuxt', { css: false }],
     '@nuxtjs/dotenv',
-    '@nuxtjs/axios',
-    ['nuxt-sass-resources-loader', path.resolve(__dirname, 'assets/scss/resources.scss')]
+    '@nuxtjs/axios'
   ],
+  
+  axios: {
+    credentials: false
+  },
 
   plugins: [
     { src: '~plugins/vue-masonry.js', ssr: false },
@@ -43,9 +46,9 @@ module.exports = {
   ],
 
   env: {
-    baseUrl: process.env.BASE_URL,
-    apiUrl: process.env.API_URL,
-    apiUrlBrowser: process.env.API_URL_BROWSER,
+    BASE_URL: process.env.BASE_URL,
+    API_URL: process.env.API_URL,
+    API_URL_BROWSER: process.env.API_URL_BROWSER,
     GMAPS_KEY: process.env.GMAPS_KEY
   },
 

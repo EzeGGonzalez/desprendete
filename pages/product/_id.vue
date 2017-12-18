@@ -90,8 +90,7 @@
 
   export default {
     async asyncData ({ params, app }) {
-      let { data: product } = await app.$axios.get(`/api/products/${params.id}`)
-      return { product }
+      return { product: await app.$axios.$get(`/api/products/${params.id}`) }
     },
 
     head () {
