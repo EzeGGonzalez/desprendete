@@ -22,25 +22,19 @@
           </template>
 
           <b-dropdown-item :to="`/product/new`">Regalar</b-dropdown-item>
-          <b-dropdown-item :to="`/user/${$store.state.user._id}`">Mi perfil</b-dropdown-item>
+          <b-dropdown-item to="/me">Mi perfil</b-dropdown-item>
           <b-dropdown-item href="/logout">Cerrar sesión</b-dropdown-item>
         </b-nav-item-dropdown>
 
-        <b-nav-form>
-          <nuxt-link to="/product/new">
-          
-          <b-button size="sm" class="my-2 my-sm-0 btn-outline-white" type="button">
-            <span class="oi oi-camera-slr mr-1"></span> Regalar
-          </b-button>
+        <b-nav-item v-if="!$store.state.user" to="/login">Ingresar</b-nav-item>
+
+        <b-nav-form><nuxt-link to="/product/new">
+            <b-button size="sm" class="my-2 my-sm-0 btn-outline-white" type="button">
+              <span class="oi oi-camera-slr mr-1"></span> Regalar
+            </b-button>
           </nuxt-link>
         </b-nav-form>
 
-        <!-- <b-nav-item-dropdown text="Lang" right>
-          <b-dropdown-item href="#">EN</b-dropdown-item>
-          <b-dropdown-item href="#">ES</b-dropdown-item>
-          <b-dropdown-item href="#">RU</b-dropdown-item>
-          <b-dropdown-item href="#">FA</b-dropdown-item>
-        </b-nav-item-dropdown> -->
       </b-navbar-nav>
 
     </b-collapse>
@@ -51,39 +45,38 @@
 import UserPic from '~/components/UserPic.vue'
 
 export default {
+  methods: {
+
+  },
   components: {
     UserPic
   }
 }
 </script>
 
-<style lang="scss">
-  #main-nav {
-    .dropdown-menu {
-      padding: 0;
-      overflow: hidden;
-      
-      .dropdown-item:focus, .dropdown-item:hover {
-        outline: 0;
-      }
-    }
+<style lang="sass" scoped>
+#main-nav
+  li.nav-item
+    a
+      color: white
+  .dropdown-menu
+    padding: 0
+    overflow: hidden
+    
+    .dropdown-item:focus, .dropdown-item:hover
+      outline: 0
 
-    .profile-menu {
-      margin-right: 1rem;
+  .profile-menu
+    margin-right: 1rem
 
-      .dropdown-toggle {
-        display: flex;
-        align-items: center;
-      }
+    .dropdown-toggle
+      display: flex
+      align-items: center
 
-      .pic-wrapper {
-        .pic {
-          width: 40px;
-          height: 40px;
+    .pic-wrapper
+      .pic
+        width: 40px
+        height: 40px
 
-          border-radius: 50%;
-        }
-      }
-    }
-  }
+        border-radius: 50%
 </style>
