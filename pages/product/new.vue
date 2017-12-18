@@ -80,6 +80,7 @@ export default {
         address: '',
         mainImage: null,
         images: [],
+        uImages: [],
         category: null,
         subcategory: null
       },
@@ -103,7 +104,7 @@ export default {
     async onSubmit (evt) {
       evt.preventDefault()
 
-      const formData = new FormData()
+      const formData = new FormData(this.form)
 
       formData.append('owner', this.$store.state.user._id)
       formData.append('name', this.form.name)
@@ -113,9 +114,10 @@ export default {
       formData.append('address', [ this.place.geometry.location.lng(), this.place.geometry.location.lat() ])
 
       formData.append('mainImage', this.form.mainImage)
-      this.form.images.forEach((img, i) => formData.append(`images`, img))
+      formData.append('images', this.form.images)
+      this.form.uImages.forEach((img, i) => formData.append(this.form.images[i].substr(7), img))
 
-      await this.$axios.$post('/api/products', formData, {
+      await this.$axios.post('/api/products', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -138,6 +140,7 @@ export default {
 
 
 <style lang="sass" scoped>
+@import "~assets/scss/resources.scss"
 
 #new-product
   @extend .container
