@@ -55,8 +55,15 @@ passport.deserializeUser(function(id, done) {
 passport.use(strategy);
 
 exports.logout = (req, res) => {
-	req.logout();
-	res.redirect('/');
+	req.session.destroy((err) => {
+		if(err) return next(err)
+	
+		req.logout()
+	
+		res.redirect('/')
+	})
+	// req.logout();
+	// res.redirect('/');
 };
 
 exports.authFacebook = passport.authenticate('facebook');
