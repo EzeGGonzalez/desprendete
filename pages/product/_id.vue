@@ -109,7 +109,7 @@
 
     data () {
       return {
-        fullUrl: `${process.env.baseUrl}${this.$route.fullPath}`
+        fullUrl: `${process.env.BASE_URL}${this.$route.fullPath}`
       }
     },
 
