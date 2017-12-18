@@ -32,3 +32,36 @@ export default {
 }
 </script>
 
+<style lang="sass" scoped>
+@import "~assets/scss/resources.scss"
+
+.item
+  @include make-col-ready()
+  @include make-col(3)
+
+  @extend .mb-4
+
+  a
+    color: inherit
+
+    &:hover
+      text-decoration: none
+
+  .card
+    .card-title
+      @extend .h6
+      margin-bottom: 0
+      font-weight: 400
+
+    .interested
+      position: absolute
+      top: 0
+      right: 0
+      @extend .m-2
+
+      background-color: $brand-secondary
+      border-radius: 50%
+      @extend .p-2
+
+      color: white
+</style>

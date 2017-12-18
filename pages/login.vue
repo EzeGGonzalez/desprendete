@@ -19,15 +19,15 @@
 </template>
 
 <style lang="sass" scoped>
+@import "~assets/scss/resources.scss"
 
-  .card
-    text-align: center
+.card
+  text-align: center
 
-    img
-      width: 100%
-      @extend .mb-5
+  img
+    width: 100%
+    @extend .mb-5
 
-    a
-      @extend .mb-4
-
+  a
+    @extend .mb-4
 </style>

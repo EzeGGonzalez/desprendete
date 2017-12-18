@@ -1,3 +1,7 @@
 .btn-outline-white {
   @include button-outline-variant(white);
+
+  &:hover {
+    color: black;
+  }
 }

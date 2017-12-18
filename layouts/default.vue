@@ -24,6 +24,7 @@
 </script>
 
 <style lang="sass" scoped>
+@import "~assets/scss/resources.scss"
 
 #layout
   background-color: #f7f7f7

@@ -100,6 +100,7 @@ export default {
 
 
 <style lang="sass" scoped>
+@import "~assets/scss/resources.scss"
 
 section
   @extend .container
