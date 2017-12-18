@@ -12,3 +12,6 @@ dist
 
 .env
 .DS_Store
+
+# Backpack build
+build
