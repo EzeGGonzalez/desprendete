@@ -120,7 +120,7 @@ export default {
       formData.append('address', [ this.place.geometry.location.lng(), this.place.geometry.location.lat() ])
 
       formData.append('mainImage', this.form.mainImage)
-      formData.append('images', this.form.images)
+      this.form.images.forEach(img => formData.append('images[]', img))
       this.form.uImages.forEach((img, i) => formData.append(this.form.images[i].substr(7), img))
 
       await this.$axios.post('/api/products', formData, {
