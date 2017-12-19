@@ -57,12 +57,17 @@
 
       <b-button type="submit" variant="primary">Crear</b-button>
     </b-form>
+
+    <b-modal ref="savingModal" centered no-close-on-backdrop no-close-on-esc hide-header hide-footer>
+      <p class="text-center m-0"><Spinner /></p>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import CategoryList from '~/components/product/new/CategoryList.vue'
 import UploadImages from '~/components/product/new/UploadImages.vue'
+import Spinner from '~/components/Spinner.vue'
 
 export default {
   middleware: 'auth',
@@ -103,8 +108,9 @@ export default {
   methods: {
     async onSubmit (evt) {
       evt.preventDefault()
+      this.$refs.savingModal.show()
 
-      const formData = new FormData(this.form)
+      const formData = new FormData()
 
       formData.append('owner', this.$store.state.user._id)
       formData.append('name', this.form.name)
@@ -123,6 +129,8 @@ export default {
         }
       })
 
+      this.$refs.savingModal.hide()
+
       this.$router.replace({ path: '/' })
       this.$store.commit('ADD_ALERT_SUCCESS', 'El producto fue creado exitosamente.')
     },
@@ -133,7 +141,8 @@ export default {
 
   components: {
     CategoryList,
-    UploadImages
+    UploadImages,
+    Spinner
   }
 }
 </script>
@@ -145,4 +154,11 @@ export default {
 #new-product
   @extend .container
 
+</style>
+
+<style lang="sass">
+.modal-body
+  svg
+    width: 100px
+    height: 100px
 </style>
