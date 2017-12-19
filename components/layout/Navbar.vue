@@ -13,7 +13,7 @@
 
         <b-nav-item-dropdown v-if="$store.state.user" class="profile-menu" right>
           <template slot="button-content">
-            <user-pic/>
+            <UserPic />
           </template>
 
           <b-dropdown-item :to="`/product/new`">Regalar</b-dropdown-item>
@@ -23,8 +23,9 @@
 
         <b-nav-item v-if="!$store.state.user" to="/login">Ingresar</b-nav-item>
 
-        <b-nav-form><nuxt-link to="/product/new">
-            <b-button size="sm" class="my-2 my-sm-0 btn-outline-white" type="button">
+        <b-nav-form>
+          <nuxt-link to="/product/new">
+            <b-button size="sm" class="my-2 my-sm-0" variant="outline-white" type="button">
               <span class="oi oi-camera-slr mr-1"></span> Regalar
             </b-button>
           </nuxt-link>
@@ -40,9 +41,6 @@
 import UserPic from '~/components/UserPic.vue'
 
 export default {
-  methods: {
-
-  },
   components: {
     UserPic
   }
