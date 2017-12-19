@@ -9,11 +9,6 @@
 
     <b-collapse is-nav id="nav_collapse">
 
-      <!-- <b-navbar-nav>
-        <b-nav-item href="#">Link</b-nav-item>
-        <b-nav-item href="#" disabled>Disabled</b-nav-item>
-      </b-navbar-nav> -->
-
       <b-navbar-nav class="ml-auto">
 
         <b-nav-item-dropdown v-if="$store.state.user" class="profile-menu" right>
@@ -54,11 +49,24 @@ export default {
 }
 </script>
 
+<style lang="sass">
+.pic-wrapper
+  .pic
+    width: 40px
+    height: 40px
+    border-radius: 50%
+
+.dropdown-toggle
+  display: flex
+  align-items: center
+</style>
+
 <style lang="sass" scoped>
 #main-nav
   li.nav-item
-    a
+    a.nav-link
       color: white
+
   .dropdown-menu
     padding: 0
     overflow: hidden
@@ -68,15 +76,5 @@ export default {
 
   .profile-menu
     margin-right: 1rem
-
-    .dropdown-toggle
-      display: flex
-      align-items: center
-
-    .pic-wrapper
-      .pic
-        width: 40px
-        height: 40px
-
-        border-radius: 50%
 </style>
+
