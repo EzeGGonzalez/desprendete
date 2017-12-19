@@ -9,7 +9,7 @@
             :class="product.mainImage.width > product.mainImage.height ? 'wider' : 'higher'"
           ></b-carousel-slide>
 
-          <b-carousel-slide v-for="(img, index) in product.images"
+          <b-carousel-slide v-for="img in product.images"
             :key="img._id"
             :img-src="img.secure_url"
             :class="img.width > img.height ? 'wider' : 'higher'"
@@ -25,7 +25,7 @@
               
               <div class="media-body">
                 <h5 class="my-0">{{product.owner | fullname}}</h5>
-                <nuxt-link :to="`/users/${product.owner._id}`">Ver perfil</nuxt-link>
+                <nuxt-link :to="`/users/${product.owner.slug}`">Ver perfil</nuxt-link>
               </div>
             </div>
           </div>
