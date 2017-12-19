@@ -6,7 +6,7 @@ var Types = keystone.Field.Types;
  * ==========
  */
 var User = new keystone.List('User', {
-	autokey: { path: 'slug', from: 'name _id', unique: true }  
+	autokey: { path: 'slug', from: 'name _id', unique: true }
 });
 
 User.add({
@@ -25,6 +25,7 @@ User.schema.virtual('canAccessKeystone').get(function () {
 	return this.isAdmin;
 });
 
+User.relationship({ path: 'transactions', ref: 'Transaction', refPath: 'owner' });
 
 /**
  * Registration

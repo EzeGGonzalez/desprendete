@@ -81,7 +81,9 @@ exports = module.exports = function (app) {
 
 	app.post('/api/transactions', routes.api.transaction.create);
 
-	app.get('/api/user/:id/transactions', routes.api.user.listTransactions);
+	app.get('/api/users/:id/transactions', routes.api.user.listTransactions);
+	app.get('/api/users/:id/products', routes.api.user.products);
+	app.get('/api/users/:id', routes.api.user.get);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);
