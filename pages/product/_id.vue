@@ -98,14 +98,20 @@
       let meta = [
         { property: 'og:title', content: this.product.name },
         { property: 'og:description', content: _.isEmpty(this.product.description) ? this.product.name : this.product.description },
-        { property: 'og:type', content: 'product' }
+        { property: 'og:type', content: 'product' },
+        { property: 'og:url', content: this.fullUrl }
       ]
 
       if (this.product.mainImage) {
-        meta.push({ property: 'og:image', content: _.get(this.product, 'mainImage.secure_url') })
+        let mainImage = this.product.mainImage
+        mainImage = mainImage.secure_url.replace(`v${mainImage.version}`, 'w_200,h_200,c_mfit')
+        meta.push({ property: 'og:image', content: mainImage })
       }
 
-      this.product.images.forEach(i => meta.push({ property: 'og:image', content: i.secure_url }))
+      this.product.images.forEach(i => {
+        let image = i.secure_url.replace(`v${i.version}`, 'w_200,h_200,c_mfit')
+        meta.push({ property: 'og:image', content: image })
+      })
 
       return {
         title: this.product.name,
