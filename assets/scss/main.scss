@@ -1,4 +1,10 @@
-@import "~assets/scss/resources.scss";
+@import "~bootstrap/scss/bootstrap.scss";
+
+@import "color";
+@import "config";
+@import "shadow";
+@import "buttons";
+
 @import "products/products";
 
 html, body {
