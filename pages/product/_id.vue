@@ -96,8 +96,8 @@
 
     head () {
       let meta = [
-        { property: 'og:title', content: this.project.name },
-        { property: 'og:description', content: _.isEmpty(this.project.description) ? this.project.name : this.project.description },
+        { property: 'og:title', content: this.product.name },
+        { property: 'og:description', content: _.isEmpty(this.product.description) ? this.product.name : this.product.description },
         { property: 'og:type', content: 'product' }
       ]
 
