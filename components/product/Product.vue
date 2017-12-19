@@ -1,13 +1,13 @@
 <template>
-  <div class="item">
+  <div class="item col-md-3 mb-4">
     <nuxt-link :to="`/product/${product.slug}`">      
       <b-card :title="product.name"
         :img-src="product.mainImage | cloudinaryThumb"
         :img-alt="product.name"
         img-top
-        tag="article" :id="`product-${product._id}`">
+        title-tag="h6" tag="article" :id="`product-${product._id}`">
 
-        <span v-if="showInterested()" class="oi oi-star interested" title="icon name" aria-hidden="true"></span>
+        <span v-if="showInterested()" class="oi oi-star interested m-2 p-2" title="icon name" aria-hidden="true"></span>
         
       </b-card>
     </nuxt-link>
@@ -33,14 +33,9 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-@import "~assets/scss/resources.scss"
+@import "~assets/scss/color"
 
 .item
-  @include make-col-ready()
-  @include make-col(3)
-
-  @extend .mb-4
-
   a
     color: inherit
 
@@ -49,7 +44,6 @@ export default {
 
   .card
     .card-title
-      @extend .h6
       margin-bottom: 0
       font-weight: 400
 
@@ -57,11 +51,7 @@ export default {
       position: absolute
       top: 0
       right: 0
-      @extend .m-2
-
       background-color: $brand-secondary
       border-radius: 50%
-      @extend .p-2
-
       color: white
 </style>
