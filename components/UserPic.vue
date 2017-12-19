@@ -17,11 +17,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-  .pic-wrapper {
-    .pic {
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-  }
+<style lang="sass" scoped>
+.pic-wrapper
+  .pic
+    background-size: cover
+    background-repeat: no-repeat
 </style>
