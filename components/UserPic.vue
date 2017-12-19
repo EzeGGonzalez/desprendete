@@ -5,13 +5,14 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   props: ['user'],
 
-  data () {
-    let user = this.user || this.$store.state.user
-    return {
-      image: (user && user.photo && user.photo.secure_url) || ''
+  computed: {
+    image () {
+      return _.get(this.user || this.$store.state.user, 'photo.secure_url')
     }
   }
 }
