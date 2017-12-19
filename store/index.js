@@ -34,7 +34,7 @@ export const actions = {
   },
 
   async getTransactions ({commit, state}) {
-    commit('SET_TRANSACTIONS', await this.$axios.$get(`/api/user/${state.user._id}/transactions`))
+    commit('SET_TRANSACTIONS', await this.$axios.$get(`/api/users/${state.user._id}/transactions`))
   },
 
   async logout ({ commit }) {
