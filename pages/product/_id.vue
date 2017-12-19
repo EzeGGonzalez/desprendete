@@ -95,13 +95,17 @@
     },
 
     head () {
-      let meta = []
+      let meta = [
+        { property: 'og:title', content: this.project.name },
+        { property: 'og:description', content: _.isEmpty(this.project.description) ? this.project.name : this.project.description },
+        { property: 'og:type', content: 'product' }
+      ]
 
       if (this.product.mainImage) {
-        meta.push({ hid: 'og-image', property: 'og-image', content: _.get(this.product, 'mainImage.secure_url') })
+        meta.push({ property: 'og:image', content: _.get(this.product, 'mainImage.secure_url') })
       }
 
-      this.product.images.forEach(i => meta.push({ hid: 'og-image', property: 'og-image', content: i.secure_url }))
+      this.product.images.forEach(i => meta.push({ property: 'og:image', content: i.secure_url }))
 
       return {
         title: this.product.name,
