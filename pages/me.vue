@@ -1,75 +1,59 @@
-<template>
-  <section id="user-profile">
-    <b-form @submit="onSubmit">
+<template <template lang="pug">
+  section#user-profile.container
+    b-form(@submit='onSubmit')
+      b-form-group#name_first_group(label='Nombre', label-for='name_first')
+        b-form-input#name_first(type='text', v-model='form.name.first', required='')
 
-      <b-form-group id="name_first_group"
-                    label="Nombre" label-for="name_first">
-        <b-form-input id="name_first"
-                      type="text" v-model="form.name.first" required
-        ></b-form-input>
-      </b-form-group>
+      b-form-group#name_last_group(label='Apellido', label-for='name_last')
+        b-form-input#name_last(type='text', v-model='form.name.last', required='')
 
-      <b-form-group id="name_last_group"
-                    label="Apellido" label-for="name_last">
-        <b-form-input id="name_last"
-                      type="text" v-model="form.name.last" required
-        ></b-form-input>
-      </b-form-group>
+      b-form-group#email_group(label='Email', label-for='email')
+        b-form-input#email(type='email', v-model='form.email', required='')
 
-      <b-form-group id="email_group"
-                    label="Email" label-for="email">
-        <b-form-input id="email"
-                      type="email" v-model="form.email" required
-        ></b-form-input>
-      </b-form-group>
+      b-form-group#phone_group(label='Teléfono', label-for='phone')
+        b-form-input#phone(type='text', v-model='form.phone')
 
-      <b-form-group id="phone_group"
-                    label="Teléfono" label-for="phone">
-        <b-form-input id="phone"
-                      type="text" v-model="form.phone"
-        ></b-form-input>
-      </b-form-group>
-
-      <!-- <b-row> -->
-        <!-- <b-col md="3"> -->
-          <b-form-group id="main_image_group" label="Foto" label-for="photo">
-            <b-form-file name="photo" ref="photo" id="photo" v-model="newPhoto"></b-form-file>
-          </b-form-group>
-        <!-- </b-col> -->
-      <!-- </b-row> -->
-
-      <b-button type="submit" variant="primary">Guardar</b-button>
-    </b-form>
-  </section>
+      b-form-group#main_image_group(label='Foto', label-for='photo')
+        b-form-file#photo(name='photo', ref='photo', v-model='newPhoto', @change="showPreview")
+      
+      b-form-group(v-if="photoPreview")
+        img.preview(:src="photoPreview")
+        
+      b-button(type='submit', variant='primary') Guardar
 </template>
 
 <script>
-function copy (o) {
-  var output, v, key
-
-  output = Array.isArray(o) ? [] : {}
-
-  for (key in o) {
-    v = o[key]
-    output[key] = (typeof v === 'object') ? copy(v) : v
-  }
-  return output
-}
+import _ from 'lodash'
 
 export default {
   middleware: 'auth',
 
   data () {
     return {
-      newPhoto: null
+      newPhoto: null,
+      photoPreview: null
     }
   },
 
   created () {
-    this.form = copy(this.$store.state.user)
+    this.form = _.cloneDeep(this.$store.state.user)
   },
 
   methods: {
+    showPreview (e) {
+      const input = e.target
+
+      if (input.files && input.files[0]) {
+        var reader = new FileReader()
+
+        reader.onload = (ev) => {
+          this.photoPreview = ev.target.result
+        }
+
+        reader.readAsDataURL(input.files[0])
+      }
+    },
+
     async onSubmit (evt) {
       evt.preventDefault()
 
@@ -84,25 +68,23 @@ export default {
         formData.append('photo', this.newPhoto)
       }
 
-      let newUser = await this.$axios.$put(`/api/user/${this.$store.state.user._id}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+      let newUser = await this.$axios.$put(
+        `/api/user/${this.$store.state.user._id}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
         }
-      })
+      )
 
-      this.$router.replace({ path: '/' })
       this.$store.commit('SET_USER', newUser)
       this.$store.commit('ADD_ALERT_SUCCESS', 'Datos del perfil modificados exitosamente.')
+      this.$router.replace({ path: '/' })
     }
   }
 }
 </script>
 
-
 <style lang="sass" scoped>
-@import "~assets/scss/resources.scss"
-
-section
-  @extend .container
-
+img.preview
+  max-height: 150px
 </style>
