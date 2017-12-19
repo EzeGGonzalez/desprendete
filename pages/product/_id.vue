@@ -87,6 +87,7 @@
 <script>
   import { mapActions } from 'vuex'
   import UserPic from '~/components/UserPic.vue'
+  import _ from 'lodash'
 
   export default {
     async asyncData ({ params, app }) {
@@ -94,9 +95,17 @@
     },
 
     head () {
+      let meta = []
+
+      if (this.product.mainImage) {
+        meta.push({ hid: 'og-image', property: 'og-image', content: _.get(this.product, 'mainImage.secure_url') })
+      }
+
+      this.product.images.forEach(i => meta.push({ hid: 'og-image', property: 'og-image', content: i.secure_url }))
+
       return {
         title: this.product.name,
-        meta: this.product.images.map(i => ({ hid: 'og-image', property: 'og-image', content: i.secure_url }))
+        meta
       }
     },
 
