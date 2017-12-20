@@ -1,5 +1,5 @@
 <template>
-  <div class="item col-md-3 mb-4">
+  <div class="item col-md-3 col-sm-4 col-6">
     <nuxt-link :to="`/product/${product.slug}`">      
       <b-card :title="product.name"
         :img-src="product.mainImage | cloudinaryThumb"
@@ -36,6 +36,13 @@ export default {
 @import "~assets/scss/color"
 
 .item
+  margin-bottom: 30px
+
+  @media screen and (max-width: 540px)
+    margin-bottom: 20px
+    padding-right: 10px
+    padding-left: 10px
+
   a
     color: inherit
 
