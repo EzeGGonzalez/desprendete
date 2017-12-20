@@ -68,6 +68,8 @@
 import CategoryList from '~/components/product/new/CategoryList.vue'
 import UploadImages from '~/components/product/new/UploadImages.vue'
 import Spinner from '~/components/Spinner.vue'
+import axios from 'axios'
+import _ from 'lodash'
 
 export default {
   middleware: 'auth',
@@ -108,32 +110,42 @@ export default {
   methods: {
     async onSubmit (evt) {
       evt.preventDefault()
+
       this.$refs.savingModal.show()
 
-      const formData = new FormData()
+      const formData = {}
 
-      formData.append('owner', this.$store.state.user._id)
-      formData.append('name', this.form.name)
-      formData.append('description', this.form.description)
-      formData.append('status', this.form.status)
-      formData.append('condition', this.form.condition)
-      formData.append('address', [ this.place.geometry.location.lng(), this.place.geometry.location.lat() ])
+      formData.owner = this.$store.state.user._id
+      formData.name = this.form.name
+      formData.description = this.form.description
+      formData.status = this.form.status
+      formData.condition = this.form.condition
+      formData.address = [ this.place.geometry.location.lng(), this.place.geometry.location.lat() ]
 
-      formData.append('mainImage', this.form.mainImage)
-      this.form.images.forEach(img => formData.append('images[]', img))
-      this.form.uImages.forEach((img, i) => formData.append(this.form.images[i].substr(7), img))
+      formData.mainImage = await this.uploadImage(this.form.mainImage)
 
-      await this.$axios.post('/api/products', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+      formData.images = []
+      for (let img of this.form.uImages) {
+        formData.images.push(await this.uploadImage(img))
+      }
+
+      await this.$axios.post('/api/products', formData)
 
       this.$refs.savingModal.hide()
 
       this.$router.replace({ path: '/' })
       this.$store.commit('ADD_ALERT_SUCCESS', 'El producto fue creado exitosamente.')
     },
+
+    async uploadImage (img) {
+      let imgFormData = new FormData()
+
+      imgFormData.append('file', img)
+      imgFormData.append('upload_preset', process.env.CLOUDINARY_UPLOAD_PRESET)
+
+      return _.get(await axios.post(process.env.CLOUDINARY_UPLOAD_URL, imgFormData), 'data')
+    },
+
     setPlace (place) {
       this.place = place
     }

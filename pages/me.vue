@@ -24,6 +24,7 @@
 
 <script>
 import _ from 'lodash'
+import axios from 'axios'
 
 export default {
   middleware: 'auth',
@@ -57,28 +58,24 @@ export default {
     async onSubmit (evt) {
       evt.preventDefault()
 
-      const formData = new FormData()
-
-      formData.append('name.first', this.form.name.first)
-      formData.append('name.last', this.form.name.last)
-      formData.append('email', this.form.email)
-      formData.append('phone', this.form.phone)
-
       if (this.newPhoto) {
-        formData.append('photo', this.newPhoto)
+        this.form.photo = await this.uploadImage(this.newPhoto)
       }
 
-      let newUser = await this.$axios.$put(
-        `/api/user/${this.$store.state.user._id}`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }
-      )
+      let newUser = await this.$axios.$put(`/api/user/${this.$store.state.user._id}`, this.form)
 
       this.$store.commit('SET_USER', newUser)
       this.$store.commit('ADD_ALERT_SUCCESS', 'Datos del perfil modificados exitosamente.')
       this.$router.replace({ path: '/' })
+    },
+
+    async uploadImage (img) {
+      let imgFormData = new FormData()
+
+      imgFormData.append('file', img)
+      imgFormData.append('upload_preset', process.env.CLOUDINARY_UPLOAD_PRESET)
+
+      return _.get(await axios.post(process.env.CLOUDINARY_UPLOAD_URL, imgFormData), 'data')
     }
   }
 }
