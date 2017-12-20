@@ -5,6 +5,10 @@ section#user-profile.container
       UserPic(:user='user')
 
       h3.name.mt-2 {{user | fullname}}
+
+      .share-icons
+        Share(type="facebook")
+        Share(type="twitter")
       
       ul
         li.p-2.active
@@ -24,6 +28,7 @@ section#user-profile.container
 
 <script>
 import UserPic from '~/components/UserPic.vue'
+import Share from '~/components/Share.vue'
 import Product from '~/components/product/Product.vue'
 import NoSSR from 'vue-no-ssr'
 
@@ -44,7 +49,8 @@ export default {
   components: {
     UserPic,
     Product,
-    NoSSR
+    NoSSR,
+    Share
   }
 }
 </script>
@@ -58,6 +64,33 @@ section#user-profile
     margin-left: 15px
     margin-right: 15px
     background: url(/background_profile.png)
+    background-size: contain
+    background-repeat-y: no-repeat
+
+  & /deep/ .pic-wrapper
+    height: 150px
+    width: 150px
+    margin-left: auto
+    margin-right: auto
+    border-radius: 50%
+    border: 1px dashed $brand-secondary
+    padding: 0.25rem
+
+    .pic
+      height: 100%
+      width: 100%
+      border-radius: 50%
+      background-size: cover
+      background-position: center
+      background-repeat: no-repeat
+
+
+  .share-icons
+    text-align: center
+    margin: 0 -5px
+    /deep/ img
+      padding: 0 5px
+      width: 35px
 
   .name
     text-align: center
@@ -83,26 +116,3 @@ section#user-profile
         font-weight: 500
         text-transform: uppercase
 </style>
-
-<style lang="sass">
-@import "~assets/scss/color"
-
-section#user-profile
-  .pic-wrapper
-    height: 150px
-    width: 150px
-    margin-left: auto
-    margin-right: auto
-    border-radius: 50%
-    border: 1px dashed $brand-secondary
-    padding: 0.25rem
-
-    .pic
-      height: 100%
-      width: 100%
-      border-radius: 50%
-      background-size: cover
-      background-position: center
-      background-repeat: no-repeat
-</style>
-
