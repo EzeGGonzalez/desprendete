@@ -70,12 +70,8 @@
             <p>Compartí con tus amigos</p>
 
             <div class="share-icons">
-              <a :href="shareFB()">
-                <img src="/fb.png" alt="share on facebook">
-              </a>
-              <a :href="shareTW()">
-                <img src="/tw.jpg" alt="share on twitter">
-              </a>
+              <Share type="facebook" />
+              <Share type="twitter" :text="`${product.name} en desuso se regala en desprendete.com:`" />
             </div>
           </div>
         </div>
@@ -87,6 +83,7 @@
 <script>
   import { mapActions } from 'vuex'
   import UserPic from '~/components/UserPic.vue'
+  import Share from '~/components/Share.vue'
   import _ from 'lodash'
 
   export default {
@@ -99,7 +96,7 @@
         { property: 'og:title', content: this.product.name },
         { property: 'og:description', content: _.isEmpty(this.product.description) ? this.product.name : this.product.description },
         { property: 'og:type', content: 'product' },
-        { property: 'og:url', content: this.fullUrl }
+        { property: 'og:url', content: `${process.env.BASE_URL}${this.$route.fullPath}` }
       ]
 
       if (this.product.mainImage) {
@@ -126,12 +123,6 @@
         .forEach(ci => (ci.style.height = `${carouselWidth}px`))
     },
 
-    data () {
-      return {
-        fullUrl: `${process.env.BASE_URL}${this.$route.fullPath}`
-      }
-    },
-
     methods: {
       ...mapActions(['wantIt']),
 
@@ -141,19 +132,12 @@
 
       imgMap () {
         return `https://maps.googleapis.com/maps/api/staticmap?center=${this.product.address[1]},${this.product.address[0]}&zoom=14&size=450x180&key=${process.env.GMAPS_KEY}`
-      },
-
-      shareFB () {
-        return `https://www.facebook.com/dialog/share?app_id=1031588773519678&display=popup&href=${this.fullUrl}&redirect_uri=${this.fullUrl}`
-      },
-
-      shareTW () {
-        return `http://twitter.com/share?text=text goes here&url=${this.fullUrl}`
       }
     },
 
     components: {
-      UserPic
+      UserPic,
+      Share
     }
   }
 </script>
