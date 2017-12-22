@@ -18,7 +18,7 @@ exports.list = function(req, res) {
 exports.get = function (req, res) {
   Product.model
     .findOne({slug: req.params.id})
-    .populate('owner')
+    .populate('owner category')
     .exec(function(err, item) {
       if (err) return res.json({ err: err });
       if (!item) return res.json('not found');
@@ -35,4 +35,27 @@ exports.create = function(req, res) {
     if (err) return res.json({ error: err });
     res.json(item);
   });
+}
+
+exports.update = function(req, res) {
+  Product.model
+    .findOne({slug: req.params.id})
+    .exec(function(err, item) {
+      if (err) return res.json({ err: err });
+      if (!item) return res.json({ err: 'not found' });
+
+      var data = (req.method == 'PUT') ? req.body : req.query;
+
+      item.getUpdateHandler(req).process(data, function(err, product) {
+
+        if (err) return res.json({ err: err });
+
+        Product.model
+          .findOne({slug: req.params.id})
+          .setOptions({ lean: true })
+          .exec(function(err, product) {
+            res.json(product);
+          });
+      });
+    });
 }

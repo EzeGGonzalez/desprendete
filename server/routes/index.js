@@ -78,6 +78,7 @@ exports = module.exports = function (app) {
 	app.post('/api/products', routes.api.product.create);
 	app.get('/api/products', routes.api.product.list);
 	app.get('/api/products/:id', routes.api.product.get);
+	app.put('/api/products/:id', routes.api.product.update);
 
 	app.post('/api/transactions', routes.api.transaction.create);
 

@@ -35,8 +35,16 @@
           <div class="card-body">
             <h3 class="name mb-4 p-0">{{product.name}}</h3>
 
-            <b-row>
-              <b-col md="6" v-if="!hasTransaction()">
+            <b-row v-show="mine()">
+              <b-col md="12">
+                <nuxt-link :to="`/product/${product.slug}/edit`" class="btn btn-block btn-primary">
+                  Editar
+                </nuxt-link>
+              </b-col>
+            </b-row>
+
+            <b-row v-show="!mine()">
+              <b-col md="6" v-show="!hasTransaction()">
                 <b-button block variant="primary" @click="wantIt(product)">
                   Me interesa
                 </b-button>
@@ -125,6 +133,10 @@
 
     methods: {
       ...mapActions(['wantIt']),
+
+      mine () {
+        return _.get(this.product, 'owner._id') === _.get(this.$store, 'state.user._id')
+      },
 
       hasTransaction () {
         return this.$store.state.transactions.find(t => t.product === this.product._id)

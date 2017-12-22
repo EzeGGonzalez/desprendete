@@ -13,8 +13,8 @@
 
     <b-form-select id="category"
       text-field="name" value-field="_id"
-      v-if="subcategories().length"
-      :options="subcategories()" required
+      v-if="subcategories(form.category).length"
+      :options="subcategories(form.category)" required
       v-model="form.subcategory"
     >
       <template slot="first">
@@ -28,7 +28,7 @@
 export default {
   props: ['form'],
 
-  async mounted () {
+  async created () {
     this.categories = await this.$axios.$get(`/api/categories`)
   },
 
@@ -42,12 +42,15 @@ export default {
     categoryActive (category) {
       return this.form.category && this.form.category._id === category._id
     },
+
     setCategory (c) {
       this.form.subcategory = null
       this.form.category = c
     },
-    subcategories () {
-      return (this.form.category && this.form.category.subcategories) || []
+
+    subcategories (category) {
+      let c = this.categories.find(c => c._id === category._id)
+      return (c && c.subcategories) || []
     }
   }
 }
@@ -56,39 +59,39 @@ export default {
 
 <style lang="sass" scoped>
   .category-list 
-    display: flex;
-    padding: 0;
-    margin-left: -15px;
-    margin-right: -15px;
+    display: flex
+    padding: 0
+    margin-left: -15px
+    margin-right: -15px
 
     #category-select
-      visibility: hidden;
+      visibility: hidden
 
     .category-wrap
-      display: block;
-      padding: 0 15px;
-      cursor: pointer;
+      display: block
+      padding: 0 15px
+      cursor: pointer
 
       .category
-        height: 100px;
-        width: 100px;
+        height: 100px
+        width: 100px
 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: flex-start
 
         img
-          height: 50px;
-          filter: grayscale(100%);            
+          height: 50px
+          filter: grayscale(100%)            
 
         small
-          text-align: center;
+          text-align: center
 
       &.active
         img
-          filter: none;
+          filter: none
 
         small
-          font-weight: 800;
+          font-weight: 800
 </style>

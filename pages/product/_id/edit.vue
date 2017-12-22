@@ -1,6 +1,6 @@
 <template>
   <div id="new-product">
-    <b-form @submit="onSubmit">
+    <b-form @submit="onSubmit" v-if="form">
       <b-form-group id="name_group"
                     label="Nombre" label-for="name">
         <b-form-input id="name"
@@ -26,10 +26,8 @@
         <b-col md="6">
           <b-form-group id="status_group"
                     label="Estado" label-for="status">
-            <b-form-select id="status"
-                          :options="status" required
-                          v-model="form.status"
-            ></b-form-select>
+            <b-form-select id="status" v-model="form.status" :options="status" required>
+            </b-form-select>
           </b-form-group>
         </b-col>
 
@@ -45,10 +43,12 @@
       </b-row>
 
       <b-form-group id="address_group"
-                    label="Ubicación" label-for="address">
+                    label="Cambiar Ubicación" label-for="address">
+
+        <img class="mb-2" :src="imgMap()" alt="">
+
         <no-ssr>
           <gmap-autocomplete
-            required
             id="address"
             class="form-control"
             @place_changed="setPlace">
@@ -56,7 +56,7 @@
         </no-ssr>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Crear</b-button>
+      <b-button type="submit" variant="primary">Guardar</b-button>
     </b-form>
 
     <b-modal ref="savingModal" centered no-close-on-backdrop no-close-on-esc hide-header hide-footer>
@@ -75,23 +75,24 @@ import _ from 'lodash'
 export default {
   middleware: 'auth',
 
+  async asyncData ({ params, app }) {
+    return {
+      product: await app.$axios.$get(`/api/products/${params.id}`)
+    }
+  },
+
+  mounted () {
+    this.$nextTick(() => {
+      this.form = this.product
+    })
+  },
+
   data () {
     return {
       place: null,
       mainImage: null,
-      images: [],
-      form: {
-        name: '',
-        description: '',
-        status: null,
-        condition: null,
-        address: '',
-        mainImage: null,
-        images: [],
-        uImages: [],
-        category: null,
-        subcategory: null
-      },
+      pics: {},
+      form: {},
       conditions: [
         { text: 'Seleccionar', value: null },
         { text: 'Sano', value: 'good' },
@@ -123,22 +124,29 @@ export default {
       formData.condition = this.form.condition
       formData.category = _.get(this.form, 'category._id')
       formData.subcategory = _.get(this.form, 'subcategory')
+      if (this.place && this.place.geometry) {
+        formData.address = [ this.place.geometry.location.lng(), this.place.geometry.location.lat() ]
+      }
 
-      formData.address = [ this.place.geometry.location.lng(), this.place.geometry.location.lat() ]
-
-      formData.mainImage = await this.uploadImage(this.form.mainImage)
+      if (!_.get(this.form.mainImage, 'secure_url') && _.get(this.form.mainImage, 'name')) {
+        this.form.mainImage = await this.uploadImage(this.form.mainImage)
+      }
 
       formData.images = []
       for (let img of this.form.images) {
-        formData.images.push(await this.uploadImage(img))
+        if (!_.get(img, 'secure_url') && _.get(img, 'name')) {
+          formData.images.push(await this.uploadImage(img))
+        } else {
+          formData.images.push(img)
+        }
       }
 
-      await this.$axios.post('/api/products', formData)
+      await this.$axios.put(`/api/products/${this.product.slug}`, formData)
 
       this.$refs.savingModal.hide()
 
-      this.$router.replace({ path: '/' })
-      this.$store.commit('ADD_ALERT_SUCCESS', 'El producto fue creado exitosamente.')
+      this.$router.replace({ path: `/product/${this.product.slug}` })
+      this.$store.commit('ADD_ALERT_SUCCESS', 'El producto fue editado exitosamente.')
     },
 
     async uploadImage (img) {
@@ -152,6 +160,10 @@ export default {
 
     setPlace (place) {
       this.place = place
+    },
+
+    imgMap () {
+      return `https://maps.googleapis.com/maps/api/staticmap?center=${this.product.address[1]},${this.product.address[0]}&markers=color:red|${this.product.address[1]},${this.product.address[0]}&zoom=14&size=450x180&key=${process.env.GMAPS_KEY}`
     }
   },
 
@@ -169,6 +181,22 @@ export default {
 
 #new-product
   @extend .container
+
+.image-wrapper
+  position: relative
+  
+  &:before
+    display: block
+    content: ""
+    width: 100%
+    padding-top: (9 / 16) * 100%
+
+  > .img
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
 
 </style>
 
