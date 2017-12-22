@@ -1,5 +1,5 @@
 <template>
-  <div class="item col-md-3 col-sm-4 col-6">
+  <div class="item col-md-3 col-sm-4 col-6" v-if="product">
     <nuxt-link :to="`/product/${product.slug}`">      
       <b-card :title="product.name"
         :img-src="product.mainImage | cloudinaryThumb"
@@ -21,9 +21,13 @@ export default {
   props: ['product'],
 
   mounted () {
-    let cardWidth = document.querySelector('.card-img-top').offsetWidth
-    let incFactor = cardWidth / _.get(this.product.mainImage, 'width', 0.5625)
-    document.querySelector(`#product-${this.product._id} img`).style.height = `${this.product.mainImage.height * incFactor}px`
+    let cardWidth = document.querySelector('.card-img-top').offsetWidth,
+      incFactor = cardWidth / _.get(this.product.mainImage, 'width', cardWidth),
+      elProduct = document.querySelector(`#product-${this.product._id} img`)
+
+    if (elProduct) {
+      elProduct.style.height = `${this.product.mainImage.height * incFactor}px`
+    }
   },
 
   methods: {
