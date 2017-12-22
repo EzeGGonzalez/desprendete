@@ -15,12 +15,14 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   props: ['product'],
 
   mounted () {
     let cardWidth = document.querySelector('.card-img-top').offsetWidth
-    let incFactor = cardWidth / this.product.mainImage.width
+    let incFactor = cardWidth / _.get(this.product.mainImage, 'width', 0.5625)
     document.querySelector(`#product-${this.product._id} img`).style.height = `${this.product.mainImage.height * incFactor}px`
   },
 
