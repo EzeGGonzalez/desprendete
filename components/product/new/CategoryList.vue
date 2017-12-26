@@ -2,7 +2,7 @@
   <b-form-group id="category_group" label="Categoría" label-for="category">
     <div class="category-list">
       <div @click="setCategory(c)" v-for="(c, i) in categories"
-        :key="i" class="category-wrap" :class="{ active: categoryActive(c) }">
+        :key="i" class="category-wrap" :class="{ active: c._id === category }">
 
         <div class="category">
           <img :src="c.image.secure_url" :alt="c.name">
@@ -13,8 +13,8 @@
 
     <b-form-select id="category"
       text-field="name" value-field="_id"
-      v-if="subcategories(form.category).length > 0"
-      :options="subcategories(form.category)"
+      v-if="subcategories.length > 0"
+      :options="subcategories"
       required
       v-model="subcategory"
       @input="setSubcategory"
@@ -33,7 +33,20 @@ import _ from 'lodash'
 export default {
   props: ['form'],
 
-  computed: mapState(['categories']),
+  computed: {
+    ...mapState(['categories']),
+
+    subcategories () {
+      let categoryId = _.get(this.category, '_id', this.category)
+
+      if (!categoryId) {
+        return []
+      }
+
+      let c = this.categories.find(c => c._id === categoryId)
+      return (c && c.subcategories) || []
+    }
+  },
 
   data () {
     return {
@@ -57,10 +70,6 @@ export default {
   },
 
   methods: {
-    categoryActive (category) {
-      return this.category === category._id
-    },
-
     setCategory (c) {
       this.category = c._id
       this.subcategory = null
@@ -70,17 +79,6 @@ export default {
 
     setSubcategory (sc) {
       this.form.subcategory = _.get(sc, '_id', sc)
-    },
-
-    subcategories (category) {
-      let categoryId = _.get(category, '_id', category)
-
-      if (!categoryId) {
-        return []
-      }
-
-      let c = this.categories.find(c => c._id === categoryId)
-      return (c && c.subcategories) || []
     }
   }
 }

@@ -4,10 +4,10 @@
       <b-card :title="product.name"
         :img-src="product.mainImage | cloudinaryThumb"
         :img-alt="product.name"
-        img-top
+        img-top class="depth-1"
         title-tag="h6" tag="article" :id="`product-${product._id}`">
 
-        <span v-if="showInterested()" class="oi oi-star interested m-2 p-2" title="icon name" aria-hidden="true"></span>
+        <span v-if="showInterested" class="oi oi-star interested m-2 p-2" title="icon name" aria-hidden="true"></span>
         
       </b-card>
     </nuxt-link>
@@ -30,10 +30,8 @@ export default {
     }
   },
 
-  methods: {
-    showInterested () {
-      return this.$store.state.transactions.find(t => t.product === this.product._id)
-    }
+  computed: {
+    showInterested () { this.$store.state.transactions.find(t => t.product === this.product._id) }
   }
 }
 </script>
