@@ -1,6 +1,7 @@
 export const state = () => ({
   user: null,
   transactions: [],
+  categories: [],
   notifications: []
 })
 
@@ -22,7 +23,9 @@ export const mutations = {
   REMOVE_ALERT_SUCCESS: (state, message) => {
     const index = state.notifications.indexOf(message)
     state.notifications.splice(index, 1)
-  }
+  },
+
+  SET_CATEGORIES: (state, categories) => state.categories.push(...categories)
 }
 
 export const actions = {
@@ -31,6 +34,12 @@ export const actions = {
       commit('SET_USER', req.user)
       await dispatch('getTransactions')
     }
+
+    await dispatch('getCategories')
+  },
+
+  async getCategories ({commit, state}) {
+    commit('SET_CATEGORIES', await this.$axios.$get('/api/categories'))
   },
 
   async getTransactions ({commit, state}) {

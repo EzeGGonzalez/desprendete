@@ -54,8 +54,11 @@ export default {
       formData.description = this.form.description
       formData.status = this.form.status
       formData.condition = this.form.condition
-      formData.category = _.get(this.form, 'category._id')
-      formData.subcategory = _.get(this.form, 'subcategory')
+      // If category is an object, get the _if. If not, send var value or null if not present
+      formData.category = _.get(this.form, 'category._id', _.get(this.form, 'category', null))
+      // Same as category
+      formData.subcategory = _.get(this.form, 'subcategory._id', _.get(this.form, 'subcategory', null))
+
       if (this.place && this.place.geometry) {
         formData.address = [ this.place.geometry.location.lng(), this.place.geometry.location.lat() ]
       }
@@ -88,10 +91,6 @@ export default {
       imgFormData.append('upload_preset', process.env.CLOUDINARY_UPLOAD_PRESET)
 
       return _.get(await axios.post(process.env.CLOUDINARY_UPLOAD_URL, imgFormData), 'data')
-    },
-
-    imgMap () {
-      return `https://maps.googleapis.com/maps/api/staticmap?center=${this.product.address[1]},${this.product.address[0]}&markers=color:red|${this.product.address[1]},${this.product.address[0]}&zoom=14&size=450x180&key=${process.env.GMAPS_KEY}`
     }
   },
 

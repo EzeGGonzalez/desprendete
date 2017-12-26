@@ -13,9 +13,11 @@
 
     <b-form-select id="category"
       text-field="name" value-field="_id"
-      v-if="subcategories(form.category).length"
-      :options="subcategories(form.category)" required
-      v-model="form.subcategory"
+      v-if="subcategories(form.category).length > 0"
+      :options="subcategories(form.category)"
+      required
+      v-model="subcategory"
+      @input="setSubcategory"
     >
       <template slot="first">
         <option :value="null" disabled>-- Seleccione una sub-categoría --</option>
@@ -25,35 +27,59 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import _ from 'lodash'
+
 export default {
   props: ['form'],
 
-  async created () {
-    this.categories = await this.$axios.$get(`/api/categories`)
-  },
+  computed: mapState(['categories']),
 
   data () {
     return {
-      categories: []
+      category: null,
+      subcategory: null
     }
+  },
+
+  watch: {
+    form (newVal, oldVal) {
+      this.$nextTick(() => {
+        this.category = _.get(newVal, 'category._id', _.get(newVal, 'category', null))
+        this.subcategory = _.get(newVal, 'subcategory._id', _.get(newVal, 'subcategory', null))
+      })
+    }
+  },
+
+  mounted () {
+    this.category = _.get(this, 'form.category._id', _.get(this, 'form.category', null))
+    this.subcategory = _.get(this, 'form.subcategory._id', _.get(this, 'form.subcategory', null))
   },
 
   methods: {
     categoryActive (category) {
-      return this.form.category && this.form.category._id === category._id
+      return this.category === category._id
     },
 
     setCategory (c) {
+      this.category = c._id
+      this.subcategory = null
       this.form.subcategory = null
-      this.form.category = c
+      this.form.category = c._id
+    },
+
+    setSubcategory (sc) {
+      this.form.subcategory = _.get(sc, '_id', sc)
     },
 
     subcategories (category) {
-      if (!category) {
+      let categoryId = _.get(category, '_id', category)
+
+      if (!categoryId) {
         return []
       }
 
-      let c = this.categories.find(c => c._id === category._id)
+      let c = this.categories.find(c => c._id === categoryId)
       return (c && c.subcategories) || []
     }
   }

@@ -52,8 +52,10 @@ export default {
       formData.description = this.form.description
       formData.status = this.form.status
       formData.condition = this.form.condition
-      formData.category = _.get(this.form, 'category._id')
-      formData.subcategory = _.get(this.form, 'subcategory')
+      // If category is an object, get the _if. If not, send var value or null if not present
+      formData.category = _.get(this.form, 'category._id', _.get(this.form, 'category', null))
+      // Same as category
+      formData.subcategory = _.get(this.form, 'subcategory._id', _.get(this.form, 'subcategory', null))
 
       formData.address = [ this.place.geometry.location.lng(), this.place.geometry.location.lat() ]
 

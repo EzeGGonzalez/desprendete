@@ -18,7 +18,7 @@ exports.list = function(req, res) {
 exports.get = function (req, res) {
   Product.model
     .findOne({slug: req.params.id})
-    .populate('owner category')
+    .populate('owner category subcategory')
     .exec(function(err, item) {
       if (err) return res.json({ err: err });
       if (!item) return res.json('not found');
