@@ -48,7 +48,11 @@ export default {
       this.form.category = c
     },
 
-    subcategories (category = {}) {
+    subcategories (category) {
+      if (!category) {
+        return []
+      }
+
       let c = this.categories.find(c => c._id === category._id)
       return (c && c.subcategories) || []
     }

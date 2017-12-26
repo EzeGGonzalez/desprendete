@@ -2,8 +2,8 @@
   b-row
     b-col(md='3')
       b-form-group#main_image_group(label='Foto Principal', label-for='main_image')
-        div.img-responsive-16by9.mb-2
-          b-img(class='mb-2', v-if='form.mainImage && form.mainImage.secure_url', :src='form.mainImage.secure_url', fluid='', alt="Main Image")
+        div.img-responsive-16by9.mb-2(v-if='form.mainImage && form.mainImage.secure_url')
+          b-img(class='mb-2', :src='form.mainImage.secure_url', fluid='', alt="Main Image")
         b-form-file#main_image(name='mainImage', ref='theMainImage', v-model='form.mainImage')
     b-col(md='3', v-for='(image, i) in form.images', :key='i')
       ImageItem(:i='i', :form='form')

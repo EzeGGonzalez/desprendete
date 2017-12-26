@@ -1,7 +1,7 @@
 <template lang="pug">
   b-form-group(:id='`image_${i}_group`', :label="i === 0 ? 'Fotos' : '  '", :label-for='`image_${i}`')
-    div.img-responsive-16by9.mb-2
-      b-img(v-if='form.images[i] && form.images[i].secure_url', :src='form.images[i].secure_url', fluid='', :alt="name()")
+    div.img-responsive-16by9.mb-2(v-if='form.images[i] && form.images[i].secure_url')
+      b-img(:src='form.images[i].secure_url', fluid='', :alt="name()")
     b-form-file(:id='`image_${i}`', v-model='form.images[i]', :name='name()')
 </template>
 

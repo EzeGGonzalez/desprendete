@@ -21,9 +21,9 @@ export default {
   props: ['product'],
 
   mounted () {
-    let cardWidth = document.querySelector('.card-img-top').offsetWidth,
-      incFactor = cardWidth / _.get(this.product.mainImage, 'width', cardWidth),
-      elProduct = document.querySelector(`#product-${this.product._id} img`)
+    let cardWidth = document.querySelector('.card-img-top').offsetWidth
+    let incFactor = cardWidth / _.get(this.product.mainImage, 'width', cardWidth)
+    let elProduct = document.querySelector(`#product-${this.product._id} img`)
 
     if (elProduct) {
       elProduct.style.height = `${this.product.mainImage.height * incFactor}px`
