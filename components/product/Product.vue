@@ -25,7 +25,7 @@ export default {
     let incFactor = cardWidth / _.get(this.product.mainImage, 'width', cardWidth)
     let elProduct = document.querySelector(`#product-${this.product._id} img`)
 
-    if (elProduct) {
+    if (elProduct && this.product.mainImage) {
       elProduct.style.height = `${this.product.mainImage.height * incFactor}px`
     }
   },
