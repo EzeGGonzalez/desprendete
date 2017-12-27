@@ -7,6 +7,22 @@
       <img src="/logotipo_desprendete_color_negativo_azul.svg" alt="Desprendete" height="30">
     </b-navbar-brand>
 
+    <b-nav-form class="ml-2 search" @submit='onSubmit'>
+      <b-input-group>
+        <b-input-group-addon>
+          <span class="oi oi-magnifying-glass"></span>
+        </b-input-group-addon>
+        
+        <b-form-input v-model="search"
+          type="text"
+          placeholder="¿Qué estás buscando?"></b-form-input>
+
+        <b-input-group-addon v-if="search.length > 0" class="reset-search">
+          <span @click="cleanForm" class="oi oi-x"></span>
+        </b-input-group-addon>
+      </b-input-group>
+    </b-nav-form>
+
     <b-collapse is-nav id="nav_collapse">
 
       <b-navbar-nav class="ml-auto">
@@ -41,6 +57,28 @@
 import UserPic from '~/components/UserPic.vue'
 
 export default {
+  data () {
+    return {
+      search: ''
+    }
+  },
+
+  methods: {
+    async onSubmit (evt) {
+      evt.preventDefault()
+
+      let query = { q: this.search }
+      let path = (this.$route.name === 'index' || this.$route.name === 'category-slug') ? this.$route.fullPath : '/'
+
+      this.$router.replace({ path, query })
+    },
+
+    cleanForm (evt) {
+      this.search = ''
+      this.onSubmit(evt)
+    }
+  },
+
   components: {
     UserPic
   }
@@ -60,7 +98,27 @@ export default {
 </style>
 
 <style lang="sass" scoped>
+@import "~assets/scss/mixins"
+
 #main-nav
+  form.search
+    flex: 1
+    
+    .input-group
+      width: 100%
+
+      .reset-search
+        cursor: pointer
+        color: white
+
+      input, .input-group-addon
+        border: none
+        border-bottom: 1px solid white
+        border-radius: 0px
+        background: transparent
+        color: white
+        @include placeholder-color(#fafafa)
+
   li.nav-item
     a.nav-link
       color: white

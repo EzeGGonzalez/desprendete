@@ -1,13 +1,24 @@
 var keystone = require('keystone');
-
 var Product = keystone.list('Product');
+
+const _ = require('lodash');
 
 /**
  * List Products
  */
 exports.list = function(req, res) {
+  const filters = {}
+
+  let q = _.get(req, 'query.q')
+
+  if (q && q.length) {
+    filters.$text = { $search: q }
+  }
+
+  console.log(q, filters)
+
   Product.model
-    .find()
+    .find(filters)
     .populate('owner')
     .exec(function(err, items) {
       if (err) return res.json({ err: err });

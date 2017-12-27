@@ -2,7 +2,8 @@ export const state = () => ({
   user: null,
   transactions: [],
   categories: [],
-  notifications: []
+  notifications: [],
+  search: ''
 })
 
 export const mutations = {
@@ -25,7 +26,11 @@ export const mutations = {
     state.notifications.splice(index, 1)
   },
 
-  SET_CATEGORIES: (state, categories) => state.categories.push(...categories)
+  SET_CATEGORIES: (state, categories) => state.categories.push(...categories),
+
+  SET_SEARCH: (state, search) => {
+    state.search = search
+  }
 }
 
 export const actions = {

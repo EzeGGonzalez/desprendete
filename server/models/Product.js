@@ -10,7 +10,7 @@ var Product = new keystone.List('Product', {
 });
 
 Product.add({
-	name: { type: Types.Text, initial: true, required: true },
+  name: { type: Types.Text, initial: true, required: true },
   description: { type: Types.Textarea },
   category: { type: Types.Relationship, ref: 'Category' },
   subcategory: { type: Types.Relationship, ref: 'Category' },
@@ -22,6 +22,8 @@ Product.add({
   createdAt: { type: Types.Datetime, default: Date.now },
   owner: { type: Types.Relationship, ref: 'User' }
 });
+
+Product.schema.index({ name: 'text', description: 'text' }, { name: 'name_description_text' });
 
 /**
  * Registration

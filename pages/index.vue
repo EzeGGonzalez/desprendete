@@ -15,9 +15,13 @@
   import NoSSR from 'vue-no-ssr'
 
   export default {
-    async asyncData ({ params, app }) {
+    async asyncData ({ params, query, app }) {
       return {
-        products: await app.$axios.$get(`/api/products`, {withCredentials: true})
+        products: await app.$axios.$get(`/api/products`, {
+          params: {
+            q: query.q
+          }
+        })
       }
     },
     components: {
