@@ -63,6 +63,12 @@ export default {
     }
   },
 
+  mounted () {
+    if (this.search !== this.$route.query.q) {
+      this.search = (this.$route.query.q || '')
+    }
+  },
+
   methods: {
     async onSubmit (evt) {
       evt.preventDefault()
@@ -70,7 +76,7 @@ export default {
       let query = { q: this.search }
       let path = (this.$route.name === 'index' || this.$route.name === 'category-slug') ? this.$route.fullPath : '/'
 
-      this.$router.replace({ path, query })
+      this.$router.push({ path, query })
     },
 
     cleanForm (evt) {
