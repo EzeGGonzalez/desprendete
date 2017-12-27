@@ -30,6 +30,17 @@
 import { mapState } from 'vuex'
 import _ from 'lodash'
 
+const R = require('ramda')
+
+const getSubcategories = (c, categories) => {
+  return R.pipe(
+    R.filter(R.propEq('_id', c)),
+    R.head,
+    R.defaultTo({ subcategories: [] }),
+    R.prop('subcategories')
+  )(categories)
+}
+
 export default {
   props: ['form'],
 
@@ -37,14 +48,7 @@ export default {
     ...mapState(['categories']),
 
     subcategories () {
-      let categoryId = _.get(this.category, '_id', this.category)
-
-      if (!categoryId) {
-        return []
-      }
-
-      let c = this.categories.find(c => c._id === categoryId)
-      return (c && c.subcategories) || []
+      return getSubcategories(this.category || '', this.categories)
     }
   },
 
