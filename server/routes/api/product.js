@@ -10,9 +10,17 @@ exports.list = function(req, res) {
   const filters = {}
 
   let q = _.get(req, 'query.q')
+  let categoryId = _.get(req, 'query.category')
 
   if (q && q.length) {
     filters.$text = { $search: q }
+  }
+
+  if (categoryId) {
+    filters.$or = [
+      { 'category': categoryId },
+      { 'subcategory': categoryId }
+    ]
   }
 
   console.log(q, filters)
