@@ -7,26 +7,34 @@ const _ = require('lodash');
  * List Products
  */
 exports.list = function(req, res) {
-  const filters = {}
+  const filters = []
 
   let q = _.get(req, 'query.q')
   let categoryId = _.get(req, 'query.category')
 
   if (q && q.length) {
-    filters.$text = { $search: q }
+    let words = []
+    q.split(" ").forEach(t => words.push(new RegExp(`.*${t}.*`, 'i')) )
+
+    filters.push({
+        $or: [
+        { "name": { $in: words }},
+        { "description": { $in: words }},
+      ]
+    })
   }
 
   if (categoryId) {
-    filters.$or = [
-      { 'category': categoryId },
-      { 'subcategory': categoryId }
-    ]
+    filters.push({
+      $or: [
+        { 'category': categoryId },
+        { 'subcategory': categoryId }
+      ]
+    })
   }
 
-  console.log(q, filters)
-
   Product.model
-    .find(filters)
+    .find(filters.length > 0 ? {$and: filters} : {})
     .populate('owner')
     .exec(function(err, items) {
       if (err) return res.json({ err: err });

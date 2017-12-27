@@ -1,10 +1,6 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
 
-/**
- * User Model
- * ==========
- */
 var Product = new keystone.List('Product', {
   autokey: { path: 'slug', from: 'name _id', unique: true }  
 });
@@ -23,10 +19,5 @@ Product.add({
   owner: { type: Types.Relationship, ref: 'User' }
 });
 
-Product.schema.index({ name: 'text', description: 'text' }, { name: 'name_description_text' });
-
-/**
- * Registration
- */
 Product.defaultColumns = 'name, owner';
 Product.register();
