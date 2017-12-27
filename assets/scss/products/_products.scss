@@ -1,11 +1,21 @@
 #products {
-  @extend .container;
-  
-  .list {
+  @extend .container-fluid;
+
+  .layout {
     @include make-row();
 
-    .masonry-container {
-      width: 100%;
+    .filters {
+      @include make-col-ready();
+      @include make-col(3);
+    }
+
+    .list {
+      @include make-col-ready();
+      @include make-col(9);
+
+      .masonry-container {
+        width: 100%;
+      }
     }
   }
 }
