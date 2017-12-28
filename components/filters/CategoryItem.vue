@@ -108,6 +108,7 @@ ul
     height: 40px
     width: 40px
     margin-right: 15px
+    padding: 8px
 
   .img-placeholder
     display: inline-block
