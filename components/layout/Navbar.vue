@@ -1,59 +1,37 @@
-<template>
-  <b-navbar id="main-nav" toggleable="md" type="dark" variant="primary">
-
-    <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-
-    <b-navbar-brand href="/">
-      <img src="/logotipo_desprendete_color_negativo_azul.svg" alt="Desprendete" height="30">
-    </b-navbar-brand>
-
-    <b-nav-form class="ml-2 search" @submit='onSubmit'>
-      <b-input-group>
-        <b-input-group-addon>
-          <span class="oi oi-magnifying-glass"></span>
-        </b-input-group-addon>
-        
-        <b-form-input v-model="search"
-          type="text"
-          placeholder="¿Qué estás buscando?"></b-form-input>
-
-        <b-input-group-addon v-if="search.length > 0" class="reset-search">
-          <span @click="cleanForm" class="oi oi-x"></span>
-        </b-input-group-addon>
-      </b-input-group>
-    </b-nav-form>
-
-    <b-collapse is-nav id="nav_collapse">
-
-      <b-navbar-nav class="ml-auto">
-
-        <b-nav-item-dropdown v-if="$store.state.user" class="profile-menu" right>
-          <template slot="button-content">
-            <UserPic />
-          </template>
-
-          <b-dropdown-item :to="`/product/new`">Regalar</b-dropdown-item>
-          <b-dropdown-item to="/me">Mi perfil</b-dropdown-item>
-          <b-dropdown-item href="/logout">Cerrar sesión</b-dropdown-item>
-        </b-nav-item-dropdown>
-
-        <b-nav-item v-if="!$store.state.user" to="/login">Ingresar</b-nav-item>
-
-        <b-nav-form>
-          <nuxt-link to="/product/new">
-            <b-button size="sm" class="my-2 my-sm-0" variant="outline-white" type="button">
-              <span class="oi oi-camera-slr mr-1"></span> Regalar
-            </b-button>
-          </nuxt-link>
-        </b-nav-form>
-
-      </b-navbar-nav>
-
-    </b-collapse>
-  </b-navbar>
+<template lang="pug">
+b-navbar#main-nav(toggleable='md', type='dark', variant='primary')
+  .open-sidebar.mr-3.d-block.d-md-none(@click='toggleSidebar')
+    span.oi.oi-menu
+  
+  b-navbar-brand(href='/')
+    img(src='/logotipo_desprendete_color_negativo_azul.svg', alt='Desprendete', height='30')
+  
+  b-nav-form.search.ml-2.d-none.d-sm-none.d-md-flex(@submit='onSubmit')
+    b-input-group
+      b-input-group-addon
+        span.oi.oi-magnifying-glass
+      b-form-input(v-model='search', type='text', placeholder='¿Qué estás buscando?')
+      b-input-group-addon.reset-search(v-if='search.length > 0')
+        span.oi.oi-x(@click='cleanForm')
+  
+  b-collapse#nav_collapse(is-nav='')
+    b-navbar-nav.ml-auto
+      b-nav-item-dropdown.profile-menu(v-if='$store.state.user', right='')
+        template(slot='button-content')
+          UserPic
+        b-dropdown-item(:to='`/product/new`') Regalar
+        b-dropdown-item(to='/me') Mi perfil
+        b-dropdown-item(href='/logout') Cerrar sesión
+      b-nav-item(v-if='!$store.state.user', to='/login') Ingresar
+      b-nav-form
+        nuxt-link(to='/product/new')
+          b-button.my-2.my-sm-0(size='sm', variant='outline-white', type='button')
+            span.oi.oi-camera-slr.mr-1
+            |  Regalar
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import UserPic from '~/components/UserPic.vue'
 
 export default {
@@ -82,7 +60,11 @@ export default {
     cleanForm (evt) {
       this.search = ''
       this.onSubmit(evt)
-    }
+    },
+
+    ...mapMutations({
+      toggleSidebar: 'TOGGLE_SIDEBAR'
+    })
   },
 
   components: {
@@ -107,6 +89,9 @@ export default {
 @import "~assets/scss/mixins"
 
 #main-nav
+  .open-sidebar
+    color: white
+
   form.search
     flex: 1
     

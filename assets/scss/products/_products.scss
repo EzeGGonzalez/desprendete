@@ -7,11 +7,19 @@
     .filters {
       @include make-col-ready();
       @include make-col(3);
+
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
 
     .list {
       @include make-col-ready();
       @include make-col(9);
+
+      @media (max-width: 768px) {
+        @include make-col(12);
+      }
 
       .masonry-container {
         width: 100%;

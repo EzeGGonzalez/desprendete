@@ -46,6 +46,10 @@ module.exports = {
     '~plugins/directives.js',
   ],
 
+  router: {
+    middleware: [ 'close-sidebar' ]
+  },
+
   env: {
     BASE_URL: process.env.BASE_URL,
     API_URL: process.env.API_URL,

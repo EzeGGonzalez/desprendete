@@ -8,11 +8,11 @@
 import _ from 'lodash'
 
 export default {
-  props: ['user'],
+  props: ['user', 'pic'],
 
   computed: {
     image () {
-      return _.get(this.user || this.$store.state.user, 'photo.secure_url')
+      return _.get(this.user || this.$store.state.user, 'photo.secure_url', this.pic || '/user.svg')
     }
   }
 }

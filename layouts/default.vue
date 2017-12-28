@@ -1,23 +1,23 @@
-<template>
-  <div id="layout">
-    <navbar/>
+<template lang="pug">
+  #layout(:class="{ 'sidebar-opened': $store.state.sidebar.open }")
+    Navbar
+    MobileNavbar(class='d-block d-md-none')
 
-    <notifications/>
+    notifications
 
-    <main role="main">
-      <nuxt/>
-    </main>
-    
-  </div>
+    main(role='main')
+      nuxt
 </template>
 
 <script>
+  import MobileNavbar from '~/components/layout/MobileNavbar.vue'
   import Navbar from '~/components/layout/Navbar.vue'
   import Notifications from '~/components/layout/Notifications.vue'
 
   export default {
     components: {
       Navbar,
+      MobileNavbar,
       Notifications
     }
   }
@@ -28,6 +28,10 @@
 
 #layout
   background-color: #f7f7f7
+
+  &.sidebar-opened
+    max-height: 100vh
+    overflow: hidden
 
   main
     @extend .py-5

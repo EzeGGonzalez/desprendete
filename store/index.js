@@ -3,7 +3,10 @@ export const state = () => ({
   transactions: [],
   categories: [],
   notifications: [],
-  search: ''
+  search: '',
+  sidebar: {
+    open: false
+  }
 })
 
 export const mutations = {
@@ -30,7 +33,11 @@ export const mutations = {
 
   SET_SEARCH: (state, search) => {
     state.search = search
-  }
+  },
+
+  TOGGLE_SIDEBAR: state => (state.sidebar.open = !state.sidebar.open),
+
+  CLOSE_SIDEBAR: state => (state.sidebar.open = false)
 }
 
 export const actions = {

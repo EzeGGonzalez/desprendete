@@ -1,6 +1,6 @@
 <template lang="pug">
   li
-    div(@click='toggle', :class="{ active: isActive }")
+    div.category-wrapper(@click='toggle', :class="{ active: isActive }")
       img(v-if='hasImage', :src='model.image.secure_url')
       span.label {{model.name}}
       span.oi.oi-x(v-if="isActive", @click='clean')
@@ -80,7 +80,7 @@ ul
   list-style-type: none
   padding-left: 55px
 
-div
+.category-wrapper
   display: flex
   align-items: center
   cursor: pointer
