@@ -3,16 +3,19 @@ b-navbar#main-nav(toggleable='md', type='dark', variant='primary')
   .open-sidebar.mr-3.d-block.d-md-none(@click='toggleSidebar')
     span.oi.oi-menu
   
-  b-navbar-brand(href='/')
+  b-navbar-brand(href='/', :class="{ 'd-none': openSearch }")
     img(src='/logotipo_desprendete_color_negativo_azul.svg', alt='Desprendete', height='30')
-  
-  b-nav-form.search.ml-2.d-none.d-sm-none.d-md-flex(@submit='onSubmit')
+
+  b-nav-form.search.ml-2.d-none.d-sm-none.d-md-flex(@submit='onSubmit', :class="{ 'd-flex d-sm-flex mr-2': openSearch }")
     b-input-group
       b-input-group-addon
         span.oi.oi-magnifying-glass
       b-form-input(v-model='search', type='text', placeholder='¿Qué estás buscando?')
       b-input-group-addon.reset-search(v-if='search.length > 0')
         span.oi.oi-x(@click='cleanForm')
+
+  .open-search.d-block.d-md-none.ml-2(@click='toggleSearch')
+    span.oi(:class="{ 'oi-circle-x': openSearch, 'oi-magnifying-glass': !openSearch }")
   
   b-collapse#nav_collapse(is-nav='')
     b-navbar-nav.ml-auto
@@ -37,7 +40,8 @@ import UserPic from '~/components/UserPic.vue'
 export default {
   data () {
     return {
-      search: ''
+      search: '',
+      openSearch: false
     }
   },
 
@@ -49,7 +53,7 @@ export default {
 
   methods: {
     async onSubmit (evt) {
-      evt.preventDefault()
+      evt && evt.preventDefault()
 
       let query = { q: this.search }
       let path = (this.$route.name === 'index' || this.$route.name === 'category-slug') ? this.$route.fullPath : '/'
@@ -64,7 +68,14 @@ export default {
 
     ...mapMutations({
       toggleSidebar: 'TOGGLE_SIDEBAR'
-    })
+    }),
+
+    toggleSearch (evt) {
+      if (this.openSearch && this.search.length) {
+        this.cleanForm()
+      }
+      this.openSearch = !this.openSearch
+    }
   },
 
   components: {
@@ -73,27 +84,31 @@ export default {
 }
 </script>
 
-<style lang="sass">
-.pic-wrapper
-  .pic
-    width: 40px
-    height: 40px
-    border-radius: 50%
-
-.dropdown-toggle
-  display: flex
-  align-items: center
-</style>
-
 <style lang="sass" scoped>
 @import "~assets/scss/mixins"
 
 #main-nav
+  /deep/ .pic-wrapper
+    .pic
+      width: 40px
+      height: 40px
+      border-radius: 50%
+
+  /deep/ .dropdown-toggle
+    display: flex
+    align-items: center
+  
+  .open-search
+    color: white
+  
   .open-sidebar
     color: white
 
   form.search
     flex: 1
+
+    @media (max-width: 768px)
+      padding-top: .3125rem
     
     .input-group
       width: 100%
