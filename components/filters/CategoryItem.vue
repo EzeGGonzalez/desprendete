@@ -64,7 +64,12 @@ export default {
       if (this.isFolder) {
         this.open = !this.open
       } else {
-        this.$router.push({ path: `/category/${this.model.slug}` })
+        let query = {}
+        if (this.$route.query.q) {
+          query.q = this.$route.query.q
+        }
+
+        this.$router.push({ path: `/category/${this.model.slug}`, query })
       }
     },
 
