@@ -2,7 +2,7 @@
   <section id="product">
     <div class="row">
       <div class="col-md-7">
-        <b-carousel id="product-images" controls indicators>
+        <b-carousel id="product-images" controls indicators class="mb-2">
           <b-carousel-slide
             :key="product.mainImage._id"
             :img-src="product.mainImage.secure_url"
@@ -15,6 +15,18 @@
             :class="img.width > img.height ? 'wider' : 'higher'"
           ></b-carousel-slide>
         </b-carousel>
+
+        <div class="card mb-2">
+          <div class="card-body">
+            <p class="font-weight-bold text-uppercase">Descripción</p>
+            <p>{{product.description}}</p>
+
+            <p><span class="font-weight-bold text-uppercase">Condición:</span> {{product.condition | productCondition}}</p>
+            <p><span class="font-weight-bold text-uppercase">Estado:</span> {{product.status | productStatus}}</p>
+
+            <small>Publicado: {{product.createdAt | humanDate}}</small>
+          </div>
+        </div>
       </div>
 
       <div class="col-md-5">

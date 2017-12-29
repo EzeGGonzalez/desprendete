@@ -44,6 +44,7 @@ module.exports = {
     '~plugins/filters/fullname.js',
     '~plugins/filters/cloudinary-thumb.js',
     '~plugins/directives.js',
+    '~plugins/filters.js',
   ],
 
   router: {
