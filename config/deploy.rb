@@ -65,6 +65,12 @@ task :npmbuild do
   end
 end
 
+task :appbuild do
+  in_path(fetch(:current_path)) do
+    command %{npm run build}
+  end
+end
+
 task :start do
   invoke :start_or_restart
 end
