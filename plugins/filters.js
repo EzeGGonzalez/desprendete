@@ -2,7 +2,7 @@ import Vue from 'vue'
 import moment from 'moment'
 
 const CONDITIONS = { 'broken': 'Roto', 'good': 'Sano' }
-const STATUS = ['Malo', 'Regular', 'Bueno', 'Muy Bueno', 'Excelente']
+const STATUS = ['Mal estado', 'Estado regular', 'Buen estado', 'Muy Buen estado', 'Excelente estado']
 
 Vue.filter('productCondition', (value) => {
   return value && value.length ? CONDITIONS[value] : ''

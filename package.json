@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "backpack dev",
     "build": "nuxt build && backpack build",
+    "generate:spa": "npm run lint && nuxt generate",
     "start": "cross-env NODE_ENV=production node server/keystone.js",
     "precommit": "npm run lint",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",

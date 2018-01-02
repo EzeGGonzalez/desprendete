@@ -15,18 +15,6 @@
             :class="img.width > img.height ? 'wider' : 'higher'"
           ></b-carousel-slide>
         </b-carousel>
-
-        <div class="card mb-2">
-          <div class="card-body">
-            <p class="font-weight-bold text-uppercase">Descripción</p>
-            <p>{{product.description}}</p>
-
-            <p><span class="font-weight-bold text-uppercase">Condición:</span> {{product.condition | productCondition}}</p>
-            <p><span class="font-weight-bold text-uppercase">Estado:</span> {{product.status | productStatus}}</p>
-
-            <small>Publicado: {{product.createdAt | humanDate}}</small>
-          </div>
-        </div>
       </div>
 
       <div class="col-md-5">
@@ -56,18 +44,31 @@
             </b-row>
 
             <b-row v-show="!mine()">
-              <b-col md="6" v-show="!hasTransaction()">
+              <b-col xs="6" v-show="!hasTransaction()">
                 <b-button block variant="primary" @click="wantIt(product)">
                   Me interesa
                 </b-button>
               </b-col>
 
-              <b-col md="6">
+              <b-col xs="6">
                 <b-button block variant="outline-primary">
                   Enviar Mensaje
                 </b-button>
               </b-col>
             </b-row>
+          </div>
+        </div>
+
+        <div class="card mb-2">
+          <div class="card-body">
+            <p>{{product.description}}</p>
+
+            <b-row class="mb-2">
+              <b-col xs="6" class="text-left">{{product.condition | productCondition}}</b-col>
+              <b-col xs="6" class="text-right">{{product.status | productStatus}}</b-col>
+            </b-row>
+
+            <small>Publicado: {{product.createdAt | humanDate}}</small>
           </div>
         </div>
 
