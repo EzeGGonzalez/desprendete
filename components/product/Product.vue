@@ -7,7 +7,7 @@
         img-top class="depth-1"
         title-tag="h6" tag="article" :id="`product-${product._id}`">
 
-        <span v-if="showInterested" class="oi oi-star interested m-2 p-2" title="icon name" aria-hidden="true"></span>
+        <fa-icon pack="fas" name="star" v-if="showInterested" class="m-2 p-2" title="icon name" aria-hidden="true"></fa-icon>
         
       </b-card>
     </nuxt-link>

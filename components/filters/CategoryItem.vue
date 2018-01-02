@@ -3,7 +3,8 @@
     div.category-wrapper(@click='toggle', :class="{ active: isActive }")
       img(v-if='hasImage', :src='model.image.secure_url')
       span.label {{model.name}}
-      span.oi.oi-x(v-if="isActive", @click='clean')
+      span(@click='clean')
+        fa-icon(pack='fas', name='times-circle', v-if="isActive")
     
     ul(v-if='isFolder', v-show='open')
       category-item(:model='c', v-for='c in model.subcategories', :key='c._id')
@@ -94,14 +95,12 @@ ul
   span
     padding: 3px 0
     
-    &.oi
-      font-size: 12px
-      position: absolute
-      right: 0
-      top: 0
-      bottom: 0
-      display: flex
-      align-items: center
+  svg
+    position: absolute
+    right: 0
+    top: 0
+    bottom: 0
+    margin: auto
 
   &.active
     font-weight: 600

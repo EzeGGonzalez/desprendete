@@ -24,6 +24,23 @@ exports.list = function(req, res) {
     })
   }
 
+  if (req.query.geolat && req.query.geolng) {
+    let distance = req.query.geodist || 5
+
+    filters.push({
+      address: {
+        $near: {
+          $geometry: {
+            type: "Point" ,
+            coordinates: [ req.query.geolng , req.query.geolat ]
+          },
+          // distance is KM
+          $maxDistance: distance * 1000
+        }
+      }
+    })
+  }
+
   if (categoryId) {
     filters.push({
       $or: [

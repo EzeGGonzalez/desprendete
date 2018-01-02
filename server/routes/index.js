@@ -71,6 +71,8 @@ exports = module.exports = function (app) {
 	app.get('/gallery', routes.views.gallery);
 
 	// API
+	app.get('/api/geo', routes.api.utils.geo);
+
 	app.get('/api/categories', routes.api.category.list);
 
 	app.put('/api/user/:id', routes.api.user.update);

@@ -1,55 +1,26 @@
-<template>
-  <section id="products">
-    <div class="layout">
-      <div class="filters">
-        <p>Categorías</p>
-
-        <ul>
-          <CategoryItem :model="c" v-for="c in $store.state.categories" :key="c._id" />
-        </ul>
-      </div>
-      <div class="list">
-        <no-ssr>
-          <div v-masonry transition-duration="0s" item-selector=".item" class="masonry-container">
-            <product :product="p" v-for="p in products" :key="p._id"/>
-          </div>
-        </no-ssr>
-      </div>
-    </div>
-  </section>
+<template lang="pug">
+  ProductList(:products='products')
 </template>
 
 <script>
-  import Product from '~/components/product/Product.vue'
-  import CategoryItem from '~/components/filters/CategoryItem.vue'
-  import NoSSR from 'vue-no-ssr'
+  import ProductList from '~/components/product/List.vue'
 
   export default {
-    async asyncData ({ params, query, app }) {
+    async asyncData ({ params, query, app, store }) {
       return {
         products: await app.$axios.$get(`/api/products`, {
           params: {
-            q: query.q
+            q: query.q,
+            geolat: store.state.geo.lat,
+            geolng: store.state.geo.lng,
+            geodist: store.state.geo.distance
           }
         })
       }
     },
+
     components: {
-      Product,
-      CategoryItem,
-      'no-ssr': NoSSR
+      ProductList
     }
   }
 </script>
-
-<style lang="sass" scoped>
-.filters
-  p
-    margin-left: 40px
-    text-transform: uppercase
-    font-weight: 500
-    border-bottom: 1px solid
-
-  ul
-    list-style-type: none
-</style>

@@ -3,7 +3,9 @@ export const state = () => ({
   transactions: [],
   categories: [],
   notifications: [],
+  geo: {},
   search: '',
+  showLocationAlert: false,
   sidebar: {
     open: false
   }
@@ -37,7 +39,11 @@ export const mutations = {
 
   TOGGLE_SIDEBAR: state => (state.sidebar.open = !state.sidebar.open),
 
-  CLOSE_SIDEBAR: state => (state.sidebar.open = false)
+  CLOSE_SIDEBAR: state => (state.sidebar.open = false),
+
+  SET_GEO: (state, geo) => (state.geo = geo),
+
+  SHOW_LOCATION_ALERT: state => (state.showLocationAlert = true)
 }
 
 export const actions = {
@@ -45,6 +51,10 @@ export const actions = {
     if (req.user) {
       commit('SET_USER', req.user)
       await dispatch('getTransactions')
+    }
+
+    if (req.session.geo) {
+      commit('SET_GEO', req.session.geo)
     }
 
     await dispatch('getCategories')
@@ -70,5 +80,14 @@ export const actions = {
       owner: state.user._id
     }
     commit('ADD_TRANSACTION', await this.$axios.$post('/api/transactions', transaction))
+  },
+
+  async setGeo ({commit, state}, geo) {
+    await this.$axios.$get('/api/geo', {
+      params: {
+        ...geo
+      }
+    })
+    commit('SET_GEO', geo)
   }
 }

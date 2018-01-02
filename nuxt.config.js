@@ -23,15 +23,22 @@ module.exports = {
   loading: { color: '#ED193A' },
 
   css: [
-    { src: '~assets//open-iconic/font/css/open-iconic.css' },
-    { src: '~assets//open-iconic/font/css/open-iconic-bootstrap.css' },
     { src: '~assets/scss/main.scss', lang: 'scss' }
   ],
 
   modules: [
     ['bootstrap-vue/nuxt', { css: false }],
     '@nuxtjs/dotenv',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    ['qonfucius-nuxt-fontawesome', {
+      componentName: 'fa-icon',
+      packs: [
+        {
+          package: '@fortawesome/fontawesome-free-solid',
+          icons: ['faCamera', 'faMapPin', 'faPencilAlt', 'faSearch', 'faSyncAlt', 'faBars', 'faTimesCircle', 'faTimes']
+        }
+      ]
+    }]
   ],
   
   axios: {

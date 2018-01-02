@@ -1,21 +1,9 @@
 <template lang="pug">
-  section#products
-    .layout
-      .filters
-        p Categorías
-        ul
-          CategoryItem(:model="c" v-for="c in $store.state.categories" :key="c._id")
-
-      .list
-        no-ssr
-          .masonry-container(v-masonry='', transition-duration='0s', item-selector='.item')
-            product(:product='p', v-for='p in products', :key='p._id')
+  ProductList(:products='products')
 </template>
 
 <script>
-import Product from '~/components/product/Product.vue'
-import CategoryItem from '~/components/filters/CategoryItem.vue'
-import NoSSR from 'vue-no-ssr'
+import ProductList from '~/components/product/List.vue'
 
 const R = require('ramda')
 
@@ -33,28 +21,17 @@ export default {
       products: await app.$axios.$get(`/api/products`, {
         params: {
           q: query.q,
-          category: category._id
+          category: category._id,
+          geolat: store.state.geo.lat,
+          geolng: store.state.geo.lng,
+          geodist: store.state.geo.distance
         }
       })
     }
   },
 
   components: {
-    Product,
-    CategoryItem,
-    NoSSR
+    ProductList
   }
 }
 </script>
-
-<style lang="sass" scoped>
-.filters
-  p
-    margin-left: 40px
-    text-transform: uppercase
-    font-weight: 500
-    border-bottom: 1px solid
-
-  ul
-    list-style-type: none
-</style>

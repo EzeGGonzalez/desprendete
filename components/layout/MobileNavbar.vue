@@ -88,7 +88,7 @@ export default {
     & /deep/ .category-wrapper
       padding-right: 20px
 
-      span.oi
+      span svg
         right: 10px
 
     .sidebar-header

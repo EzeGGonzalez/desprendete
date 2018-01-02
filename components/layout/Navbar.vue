@@ -1,7 +1,7 @@
 <template lang="pug">
 b-navbar#main-nav(toggleable='md', type='dark', variant='primary')
   .open-sidebar.mr-3.d-block.d-md-none(@click='toggleSidebar')
-    span.oi.oi-menu
+    fa-icon(pack='fas', name='bars')
   
   b-navbar-brand(href='/', :class="{ 'd-none': openSearch }")
     img(src='/logotipo_desprendete_color_negativo_azul.svg', alt='Desprendete', height='30')
@@ -9,13 +9,14 @@ b-navbar#main-nav(toggleable='md', type='dark', variant='primary')
   b-nav-form.search.ml-2.d-none.d-sm-none.d-md-flex(@submit='onSubmit', :class="{ 'd-flex d-sm-flex mr-2': openSearch }")
     b-input-group
       b-input-group-addon
-        span.oi.oi-magnifying-glass
+        fa-icon(pack='fas', name='search')
       b-form-input(v-model='search', type='text', placeholder='¿Qué estás buscando?')
       b-input-group-addon.reset-search(v-if='search.length > 0')
-        span.oi.oi-x(@click='cleanForm')
+        span(@click='cleanForm')
+          fa-icon(pack='fas', name='times-circle')
 
   .open-search.d-block.d-md-none.ml-2(@click='toggleSearch')
-    span.oi(:class="{ 'oi-circle-x': openSearch, 'oi-magnifying-glass': !openSearch }")
+    fa-icon(pack='fas', :name="openSearch ? 'times-circle' : 'search'")
   
   b-collapse#nav_collapse(is-nav='')
     b-navbar-nav.ml-auto
@@ -29,7 +30,7 @@ b-navbar#main-nav(toggleable='md', type='dark', variant='primary')
       b-nav-form
         nuxt-link(to='/product/new')
           b-button.my-2.my-sm-0(size='sm', variant='outline-white', type='button')
-            span.oi.oi-camera-slr.mr-1
+            fa-icon(pack='fas', name='camera', class='.mr-1')
             |  Regalar
 </template>
 

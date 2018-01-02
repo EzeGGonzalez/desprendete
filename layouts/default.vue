@@ -7,6 +7,12 @@
 
     main(role='main')
       nuxt
+    
+    .alert.alert-geo(v-if='$store.state.showLocationAlert')
+      span.mr-3 Actualiza la página para ver anuncios cerca tuyo
+      b-button.my-2.my-sm-0(size='sm', variant='outline-white', type='button', class='px-3', @click='refreshPage')
+        fa-icon(pack='fas', name='sync-alt', class='.mr-1')
+        | Actualizar
 </template>
 
 <script>
@@ -15,6 +21,12 @@
   import Notifications from '~/components/layout/Notifications.vue'
 
   export default {
+    methods: {
+      refreshPage () {
+        window.location.reload(true)
+      }
+    },
+
     components: {
       Navbar,
       MobileNavbar,
@@ -28,6 +40,17 @@
 
 #layout
   background-color: #f7f7f7
+
+  .alert.alert-geo
+    border-color: #37474f
+    background-color: #37474f
+    color: white
+    position: fixed
+    bottom: 0
+    right: 0
+    left: 0
+    margin: 0
+    border-radius: 0
 
   &.sidebar-opened
     max-height: 100vh
