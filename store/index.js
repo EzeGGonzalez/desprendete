@@ -24,9 +24,11 @@ export const mutations = {
     state.transactions.push(transaction)
   },
 
+  ADD_ALERT_ERROR: (state, message) => state.notifications.push({ type: 'danger', message }),
+
   ADD_ALERT_SUCCESS: (state, message) => state.notifications.push({ type: 'success', message }),
 
-  REMOVE_ALERT_SUCCESS: (state, message) => {
+  REMOVE_ALERT: (state, message) => {
     const index = state.notifications.indexOf(message)
     state.notifications.splice(index, 1)
   },
