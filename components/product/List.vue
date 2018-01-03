@@ -53,25 +53,26 @@
     },
 
     mounted () {
-      this.geolocation()
+      let geo = this.$store.state.geo
+      if (!geo.lat || !geo.lng || !geo.name || !geo.distance) {
+        this.geolocation()
+      }
     },
 
     methods: {
       geolocation (cb) {
         navigator.geolocation.getCurrentPosition(async position => {
           let response = await this.$axios.$get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=${process.env.GMAPS_KEY}`)
+
           this.currentLocation = {
             geolat: position.coords.latitude,
             geolng: position.coords.longitude,
             geoname: response.results[0].address_components[2].long_name,
-            geodist: 5
+            geodist: this.$store.state.geo.distance || 5
           }
 
-          let geo = this.$store.state.geo
-          if (!geo.lat || !geo.lng || !geo.name || !geo.distance) {
-            await this.$store.dispatch('setGeo', this.currentLocation)
-            this.$store.commit('SHOW_LOCATION_ALERT')
-          }
+          await this.$store.dispatch('setGeo', this.currentLocation)
+          this.$store.commit('SHOW_LOCATION_ALERT')
 
           if (cb) {
             cb(this.currentLocation)
@@ -91,12 +92,10 @@
 
       async useCurrentLocation () {
         this.loadingCurrentLocation = true
-        if (!this.currentLocation) {
-          this.$store.commit('SET_GEO', {})
-          this.geolocation(() => window.location.reload(true))
-        } else {
+        this.geolocation(() => {
+          this.$store.commit('SET_GEO', this.currentLocation)
           window.location.reload(true)
-        }
+        })
       },
 
       editSearchLocation () {
