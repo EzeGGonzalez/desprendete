@@ -20,9 +20,20 @@ import _ from 'lodash'
 export default {
   middleware: 'auth',
 
-  async asyncData ({ params, app }) {
+  async asyncData ({ params, app, redirect, store, isClient, error }) {
+    const product = await app.$axios.$get(`/api/products/${params.id}`)
+
+    if (_.get(product, 'owner._id') !== _.get(store.state, 'user._id')) {
+      if (isClient) {
+        store.commit('ADD_ALERT_ERROR', 'No estás autorizado para acceder a esta página.')
+        return redirect('/')
+      } else {
+        return error({ statusCode: 403, message: 'No estás autorizado para acceder a esta página.' })
+      }
+    }
+
     return {
-      product: await app.$axios.$get(`/api/products/${params.id}`)
+      product
     }
   },
 
@@ -58,6 +69,8 @@ export default {
       formData.category = _.get(this.form, 'category._id', _.get(this.form, 'category', null))
       // Same as category
       formData.subcategory = _.get(this.form, 'subcategory._id', _.get(this.form, 'subcategory', null))
+
+      this.place = this.form.place
 
       if (this.place && this.place.geometry) {
         formData.address = [ this.place.geometry.location.lng(), this.place.geometry.location.lat() ]
