@@ -77,7 +77,7 @@ export default {
       }
 
       if (!_.get(this.form.mainImage, 'secure_url') && _.get(this.form.mainImage, 'name')) {
-        this.form.mainImage = await this.uploadImage(this.form.mainImage)
+        formData.mainImage = await this.uploadImage(this.form.mainImage)
       }
 
       formData.images = []
