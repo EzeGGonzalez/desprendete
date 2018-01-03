@@ -30,7 +30,7 @@
           div.float-right
             b-btn.mr-2(variant='primary', @click='useCurrentLocation')
               | Usar mi ubicación actual
-            b-btn(variant='primary', @click='useCustomLocation', :disabled='place === null')
+            b-btn(variant='primary', @click='useCustomLocation')
               | Usar esta ubicación
         div.float-right(v-if='loadingCurrentLocation') Obteniendo ubicación actual...
 </template>
@@ -68,7 +68,7 @@
             geolat: position.coords.latitude,
             geolng: position.coords.longitude,
             geoname: response.results[0].address_components[2].long_name,
-            geodist: this.$store.state.geo.distance || 5
+            geodist: this.distance || 5
           }
 
           await this.$store.dispatch('setGeo', this.currentLocation)
@@ -81,20 +81,31 @@
       },
 
       async useCustomLocation () {
-        await this.$store.dispatch('setGeo', {
-          geolat: this.place.geometry.location.lat(),
-          geolng: this.place.geometry.location.lng(),
-          geoname: this.place.formatted_address,
+        let geo = {
+          geolat: this.$store.state.geo.lat,
+          geolng: this.$store.state.geo.lng,
+          geoname: this.$store.state.geo.name,
           geodist: this.distance
-        })
-        window.location.reload(true)
+        }
+
+        if (this.place) {
+          geo = {
+            geolat: this.place.geometry.location.lat(),
+            geolng: this.place.geometry.location.lng(),
+            geoname: this.place.formatted_address,
+            geodist: this.distance
+          }
+        }
+
+        await this.$store.dispatch('setGeo', geo)
+        this.$router.go({ path: this.$route.fullPath, force: true })
       },
 
       async useCurrentLocation () {
         this.loadingCurrentLocation = true
         this.geolocation(() => {
           this.$store.commit('SET_GEO', this.currentLocation)
-          window.location.reload(true)
+          this.$router.go({ path: this.$route.fullPath, force: true })
         })
       },
 
