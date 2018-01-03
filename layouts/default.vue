@@ -43,6 +43,7 @@
 @import "~assets/scss/resources.scss"
 
 #layout
+  position: relative
   background-color: #f7f7f7
 
   .alert.alert-geo
