@@ -46,6 +46,8 @@
   position: relative
   background-color: #f7f7f7
   min-height: 100vh
+  display: flex
+  flex-direction: column
 
   .alert.alert-geo
     border-color: #37474f
@@ -64,6 +66,7 @@
 
   main
     @extend .py-5
+    flex: 1
 
   #notifications
     @extend .mt-5
