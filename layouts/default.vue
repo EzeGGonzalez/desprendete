@@ -45,6 +45,7 @@
 #layout
   position: relative
   background-color: #f7f7f7
+  min-height: 100vh
 
   .alert.alert-geo
     border-color: #37474f
