@@ -47,6 +47,8 @@ export default {
 
       const formData = {}
 
+      this.place = this.form.place
+
       formData.owner = this.$store.state.user._id
       formData.name = this.form.name
       formData.description = this.form.description
