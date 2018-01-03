@@ -16,7 +16,7 @@
         ConditionsInput(:form='form')
 
     b-form-group#address_group(:label='`${hasAddr() ? "Cambiar " : ""}Ubicación`', label-for='address')
-      img.mb-2(:src="imgMap()", alt="Ubicación del producto", v-if="hasAddr()")
+      img.mb-2(:src="imgMap", alt="Ubicación del producto", v-if="hasAddr()")
       no-ssr
         gmap-autocomplete#address.form-control(:required='!hasAddr()', @place_changed='setPlace')
 </template>
@@ -31,11 +31,13 @@ import ConditionsInput from '~/components/product/new/ConditionsInput.vue'
 export default {
   props: ['form'],
 
-  methods: {
-    setPlace (place) {
-      this.place = place
-    },
+  data () {
+    return {
+      place: null
+    }
+  },
 
+  computed: {
     imgMap () {
       let url = ''
 
@@ -43,7 +45,21 @@ export default {
         url = `https://maps.googleapis.com/maps/api/staticmap?center=${this.form.address[1]},${this.form.address[0]}&markers=color:red|${this.form.address[1]},${this.form.address[0]}&zoom=14&size=450x180&key=${process.env.GMAPS_KEY}`
       }
 
+      if (this.place) {
+        let lng = this.place.geometry.location.lng()
+        let lat = this.place.geometry.location.lat()
+
+        url = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&markers=color:red|${lat},${lng}&zoom=14&size=450x180&key=${process.env.GMAPS_KEY}`
+      }
+
       return url
+    }
+  },
+
+  methods: {
+    setPlace (place) {
+      this.form.place = place
+      this.place = place
     },
 
     hasAddr () {
