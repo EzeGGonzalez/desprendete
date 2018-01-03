@@ -54,7 +54,7 @@ export default {
       formData.description = this.form.description
       formData.status = this.form.status
       formData.condition = this.form.condition
-      // If category is an object, get the _if. If not, send var value or null if not present
+      // If category is an object, get the _id. If not, send var value or null if not present
       formData.category = _.get(this.form, 'category._id', _.get(this.form, 'category', null))
       // Same as category
       formData.subcategory = _.get(this.form, 'subcategory._id', _.get(this.form, 'subcategory', null))
