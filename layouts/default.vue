@@ -13,11 +13,14 @@
       b-button.my-2.my-sm-0(size='sm', variant='outline-white', type='button', class='px-3', @click='refreshPage')
         fa-icon(pack='fas', name='sync-alt', class='.mr-1')
         | Actualizar
+    
+    Futer
 </template>
 
 <script>
   import MobileNavbar from '~/components/layout/MobileNavbar.vue'
   import Navbar from '~/components/layout/Navbar.vue'
+  import Futer from '~/components/layout/Futer.vue'
   import Notifications from '~/components/layout/Notifications.vue'
 
   export default {
@@ -29,6 +32,7 @@
 
     components: {
       Navbar,
+      Futer,
       MobileNavbar,
       Notifications
     }
