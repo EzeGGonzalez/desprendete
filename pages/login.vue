@@ -9,7 +9,7 @@
             <a href="/auth/facebook" class="btn btn-primary">Ingresar con Facebook</a>
 
             <div>
-              <small>Si continúas, estás aceptando los <a href="#">Términos y las condiciones</a> y la <a href="#">Política de privacidad</a> de Desprendete</small>
+              <small>Si continúas, estás aceptando los <nuxt-link to="/terms">Términos y las condiciones</nuxt-link> y la <nuxt-link to="/privacy">Política de privacidad</nuxt-link> de Desprendete</small>
             </div>
           </div>
         </div>
