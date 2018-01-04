@@ -4,7 +4,7 @@
       b-form-group#main_image_group(label='Foto Principal', label-for='main_image')
         div.img-responsive-16by9.mb-2(v-if='form.mainImage && form.mainImage.secure_url')
           b-img(class='mb-2', :src='form.mainImage.secure_url', fluid='', alt="Main Image")
-        b-form-file#main_image(name='mainImage', ref='theMainImage', v-model='form.mainImage')
+        b-form-file#main_image(name='mainImage', ref='theMainImage', v-model='form.mainImage', :required='!hasMainImage()')
     b-col(md='3', v-for='(image, i) in form.images', :key='i')
       ImageItem(:i='i', :form='form')
     b-col(md='3')
@@ -14,6 +14,7 @@
 
 <script>
 import ImageItem from '~/components/product/new/ImageItem.vue'
+import _ from 'lodash'
 
 export default {
   props: ['form'],
@@ -21,6 +22,10 @@ export default {
   methods: {
     addImage () {
       this.form.images.push({})
+    },
+
+    hasMainImage () {
+      return _.get(this, 'form.mainImage') && _.get(this, 'form.mainImage.secure_url')
     }
   },
 
