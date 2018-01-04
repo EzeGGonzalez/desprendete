@@ -45,7 +45,7 @@
 
             <b-row v-show="!mine()">
               <b-col xs="6" v-show="!hasTransaction()">
-                <b-button block variant="primary" @click="wantIt(product)">
+                <b-button block variant="primary" @click="want(product)">
                   Me interesa
                 </b-button>
               </b-col>
@@ -146,6 +146,14 @@
 
     methods: {
       ...mapActions(['wantIt']),
+
+      want () {
+        if (this.$store.state.user) {
+          this.wantIt()
+        } else {
+          this.$router.push({ path: '/login' })
+        }
+      },
 
       mine () {
         return _.get(this.product, 'owner._id') === _.get(this.$store, 'state.user._id')

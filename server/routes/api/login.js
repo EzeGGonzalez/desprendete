@@ -62,8 +62,6 @@ exports.logout = (req, res) => {
 	
 		res.redirect('/')
 	})
-	// req.logout();
-	// res.redirect('/');
 };
 
 exports.authFacebook = passport.authenticate('facebook');
