@@ -68,11 +68,13 @@ export default {
         formData.images.push(await this.uploadImage(img))
       }
 
-      await this.$axios.post('/api/products', formData)
+      let product = await this.$axios.$post('/api/products', formData)
+
+      console.log(product)
 
       this.$refs.savingModal.hide()
 
-      this.$router.replace({ path: '/' })
+      this.$router.replace({ path: `/product/${product.slug}` })
       this.$store.commit('ADD_ALERT_SUCCESS', 'El producto fue creado exitosamente.')
     },
 
