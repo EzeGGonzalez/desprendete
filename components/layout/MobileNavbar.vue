@@ -3,7 +3,7 @@
     .overlay(@click='toggleSidebar')
     
     nav#sidebar
-      .sidebar-header.d-flex.align-items-center.mb-3
+      nuxt-link.sidebar-header.d-flex.align-items-center.mb-3(:to='$store.state.user ? "/me" : "/login"')
         UserPic.mr-3
         p(v-if='$store.state.user') {{$store.state.user | fullname}}
         p(v-if='!$store.state.user') Ingresá o creá tu cuenta
