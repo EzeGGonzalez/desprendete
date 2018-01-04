@@ -77,7 +77,13 @@ exports.create = function(req, res) {
 
   item.getUpdateHandler(req).process(data, err => {
     if (err) return res.json({ error: err });
-    res.json(item);
+
+    Product.model
+      .findById(item._id)
+      .setOptions({ lean: true })
+      .exec(function(err, product) {
+        res.json(product);
+      });
   });
 }
 
@@ -95,7 +101,7 @@ exports.update = function(req, res) {
         if (err) return res.json({ err: err });
 
         Product.model
-          .findOne({slug: req.params.id})
+          .findById(item._id)
           .setOptions({ lean: true })
           .exec(function(err, product) {
             res.json(product);

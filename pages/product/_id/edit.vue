@@ -89,11 +89,11 @@ export default {
         }
       }
 
-      await this.$axios.put(`/api/products/${this.product.slug}`, formData)
+      let product = await this.$axios.$put(`/api/products/${this.product.slug}`, formData)
 
       this.$refs.savingModal.hide()
 
-      this.$router.replace({ path: `/product/${this.product.slug}` })
+      this.$router.replace({ path: `/product/${product.slug}` })
       this.$store.commit('ADD_ALERT_SUCCESS', 'El producto fue editado exitosamente.')
     },
 
