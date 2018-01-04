@@ -11,7 +11,7 @@
     "start": "cross-env NODE_ENV=production node server/keystone.js",
     "precommit": "npm run lint",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "pm2:start": "pm2 start npm --name $APP_NAME -- start",
+    "pm2:start": "pm2 start -i 2 npm --name $APP_NAME -- start",
     "pm2:restart": "pm2 stop $APP_NAME && pm2 delete $APP_NAME && npm run pm2:start",
     "pm2:stop": "pm2 stop $APP_NAME && pm2 delete $APP_NAME",
     "pm2": "if pm2 list | grep $APP_NAME; then npm run pm2:restart; else npm run pm2:start; fi"

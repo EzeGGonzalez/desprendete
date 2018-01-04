@@ -12,6 +12,8 @@ var passport = require('passport');
 // See http://keystonejs.com/guide/config for available options
 // and documentation.
 
+var instance = process.env.NODE_APP_INSTANCE || 0;
+
 keystone.init({
 	'name': 'desprendete',
 	'brand': 'desprendete',
@@ -31,6 +33,8 @@ keystone.init({
 	
 	'auth': true,
 	'user model': 'User',
+
+	'port': parseInt(process.env.PORT || 3000) + parseInt(instance)
 });
 
 // Load your project's Models
