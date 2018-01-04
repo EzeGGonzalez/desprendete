@@ -8,7 +8,7 @@ const UserModel = User.model;
 
 const fbCb = (accessToken, refreshToken, profile, done) => {
 	UserModel
-		.findOne({facebookId: profile.id})
+		.findOne({$or: [{facebookId: profile.id}, {email: profile.emails[0].value}]})
 		.exec(function(err, user) {
 			if(err) throw(err);
 			if(!err && user != null) return done(null, user);
