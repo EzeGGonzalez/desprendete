@@ -1,0 +1,27 @@
+extends layout.pug
+
+block content
+  p Hola #{interested.name.first}
+
+  p
+    | Mostraste interes por&nbsp;
+    b #{product}
+    | . Abajo te compartimos los datos del dueño para que puedas ponerte en contacto y coordinar la entregarle.
+
+  p
+    | Nombre y Apellido: #{owner.name.first} #{owner.name.last}
+    br
+    | Email: #{owner.email}
+    br
+    | Telefono: #{owner.phone}
+    br
+    | Perfil FB: #{owner.fb}
+
+  p Por favor, te pedimos que valores como te fue con #{owner.name.first} para poder seguir generando confianza dentro de la comunidad y cada vez usar Desprendete sea una excelente experiencia de regalar lo que no usas a alguien que le va a dar uso evitando así que se convierta en basura. 
+
+  p Muchas gracias
+
+  p
+    | Saludos
+    br
+    | Equipo Desprendete

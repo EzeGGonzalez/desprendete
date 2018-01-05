@@ -28,6 +28,7 @@
     "cross-env": "^5.1.1",
     "dotenv": "^4.0.0",
     "keystone": "4.0.0-beta.5",
+    "keystone-email": "^1.0.5",
     "lodash.startcase": "^4.4.0",
     "marker-clusterer-plus": "^2.1.4",
     "node-sass-middleware": "^0.11.0",
