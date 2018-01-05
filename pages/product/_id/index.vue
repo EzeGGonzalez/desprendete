@@ -149,7 +149,7 @@
 
       want () {
         if (this.$store.state.user) {
-          this.wantIt()
+          this.wantIt(this.product)
         } else {
           this.$router.push({ path: '/login' })
         }
