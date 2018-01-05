@@ -1,13 +1,15 @@
 <template>
   <div class="item col-md-3 col-sm-4 col-6" v-if="product">
-    <nuxt-link :to="`/product/${product.slug}`">      
+    <nuxt-link :to="`/product/${product.slug}`">
       <b-card :title="product.name"
         :img-src="product.mainImage | cloudinaryThumb"
         :img-alt="product.name"
         img-top class="depth-1"
         title-tag="h6" tag="article" :id="`product-${product._id}`">
-
-        <fa-icon pack="fas" name="star" v-if="showInterested" class="m-2 p-2" title="icon name" aria-hidden="true"></fa-icon>
+        
+        <span class="interested" v-if="showInterested">
+          <fa-icon pack="fas" name="star" class="m-2 p-2" title="icon name" aria-hidden="true"></fa-icon>
+        </span>
         
       </b-card>
     </nuxt-link>
@@ -31,7 +33,9 @@ export default {
   },
 
   computed: {
-    showInterested () { this.$store.state.transactions.find(t => t.product === this.product._id) }
+    showInterested () {
+      return !!this.$store.state.transactions.find(t => t.product === this.product._id)
+    }
   }
 }
 </script>
@@ -60,9 +64,14 @@ export default {
 
     .interested
       position: absolute
-      top: 0
-      right: 0
+      top: 5px
+      right: 5px
       background-color: $brand-secondary
       border-radius: 50%
       color: white
+      height: 30px
+      width: 30px
+      display: flex
+      align-items: center
+      justify-content: center
 </style>
