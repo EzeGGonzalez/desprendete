@@ -35,7 +35,7 @@ module.exports = {
       packs: [
         {
           package: '@fortawesome/fontawesome-free-solid',
-          icons: ['faCamera', 'faMapPin', 'faPencilAlt', 'faSearch', 'faSyncAlt', 'faBars', 'faTimesCircle', 'faTimes']
+          icons: ['faCamera', 'faMapPin', 'faPencilAlt', 'faSearch', 'faSyncAlt', 'faBars', 'faTimesCircle', 'faTimes', 'faStar']
         }
       ]
     }]
