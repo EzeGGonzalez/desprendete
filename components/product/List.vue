@@ -12,6 +12,10 @@
             span.mx-3 A {{distance}} km de {{$store.state.geo.name}}
             fa-icon(pack='fas', name='pencil-alt')
         
+        .text-center.no-results.mt-5(v-if="products.length === 0")
+          h3 No encontramos nada que se regale a esta distancia. Prueba aumentando el rango!
+          img.mt-3(src='/zoom.svg')
+
         no-ssr
           .masonry-container(v-masonry='', transition-duration='0s', item-selector='.item')
             product(:product='p', v-for='p in products', :key='p._id')
@@ -128,6 +132,10 @@
 
 <style lang="sass" scoped>
 .list
+  .no-results
+    img
+      max-width: 200px
+
   .location
     text-align: center
 
