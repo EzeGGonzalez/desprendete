@@ -30,6 +30,20 @@ export default {
     }
   },
 
+  head () {
+      let meta = [
+        { property: 'og:title', content: this.category.name },
+        { property: 'og:description', content: `Encontrá ${this.category.name} en Desprendete` },
+        { property: 'og:url', content: `${process.env.BASE_URL}${this.$route.fullPath}` }
+      ]
+
+      return {
+        title: this.category.name,
+        description: `Encontrá ${this.category.name} en Desprendete`,
+        meta
+      }
+    },
+
   components: {
     ProductList
   }
