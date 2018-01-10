@@ -30,11 +30,15 @@ keystone.init({
 	'auto update': true,
 	'session': true,
 	'session store': 'mongo',
-	
+
 	'auth': true,
 	'user model': 'User',
 
-	'port': parseInt(process.env.PORT || 3000) + parseInt(instance)
+	'port': parseInt(process.env.PORT || 3000) + parseInt(instance),
+
+	// 'admin path': 'admin',
+
+	'trust proxy' : true
 });
 
 // Load your project's Models
