@@ -4,11 +4,11 @@
   b-form(@submit='onSubmit')
     ProductForm(:form='form')
     b-button(type='submit', variant='primary') Crear
-  
+
   b-modal(ref='savingModal', centered, no-close-on-backdrop, no-close-on-esc, hide-header, hide-footer)
     p.text-center.m-0
       Spinner
-  
+
 </template>
 
 <script>
@@ -65,7 +65,9 @@ export default {
 
       formData.images = []
       for (let img of this.form.images) {
-        formData.images.push(await this.uploadImage(img))
+        if (_.get(img, 'name')) {
+          formData.images.push(await this.uploadImage(img))
+        }
       }
 
       let product = await this.$axios.$post('/api/products', formData)
