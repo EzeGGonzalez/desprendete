@@ -38,7 +38,7 @@ module.exports = {
           icons: ['faCamera', 'faMapPin', 'faPencilAlt', 'faSearch', 'faSyncAlt', 'faBars', 'faTimesCircle', 'faTimes', 'faStar']
         }
       ]
-    }]
+    }],
   ],
   
   axios: {

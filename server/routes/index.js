@@ -62,6 +62,9 @@ exports = module.exports = function (app) {
 		res.send(200);
 	});
 
+	app.get('/sitemap.xml/generate', routes.api.utils.generateSitemap);
+	app.get('/sitemap.xml', routes.api.utils.sitemap);
+
 	app.get('/logout', routes.api.login.logout);
 	app.get('/auth/facebook', routes.api.login.authFacebook);
 	app.get('/auth/facebook/callback', routes.api.login.authFacebookCallback);

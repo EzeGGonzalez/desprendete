@@ -10,13 +10,14 @@ require 'mina/git'
 #   branch       - Branch name to deploy. (needed by mina/git)
 
 set :application_name, 'desprendete'
-set :domain, '104.131.189.236'
+# set :domain, '104.131.189.236'
+set :domain, '104.214.114.199'
 set :deploy_to, '/var/www/desprendete'
 set :repository, 'https://github.com/EzeGGonzalez/desprendete.git'
 set :branch, 'master'
 set :user, 'desprendete'
 # set :shared_dirs, fetch(:shared_dirs, []).push('node_modules')
-set :shared_files, fetch(:shared_files, []).push('.env')
+set :shared_files, fetch(:shared_files, []).push('.env', 'sitemap.xml')
 set :keep_releases, 2
 
 # Optional settings:
