@@ -27,6 +27,8 @@ var generateSitemap = (req, res, next) => {
         urls: items.map(p => ({ url: `/produc/${p.slug}` }))
       });
 
+      sitemap.add({url: '/'});
+
       fs.writeFileSync(`${process.cwd()}/sitemap.xml`, sitemap.toString());
 
       res.header('Content-Type', 'application/xml');
